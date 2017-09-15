@@ -12,20 +12,28 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 // --------------------
 // Backpack\Demo routes
 // --------------------
 Route::group([
-    'prefix'     => config('backpack.base.route_prefix', 'admin'),
-    'middleware' => ['admin'],
-    'namespace'  => 'Admin',
+	'prefix'     => config('backpack.base.route_prefix', 'admin'),
+	'middleware' => ['admin'],
+	'namespace'  => 'Admin',
 ], function () {
-    // CRUD resources and other admin routes
-    CRUD::resource('monster', 'MonsterCrudController');
+	// CRUD resources and other admin routes
+	CRUD::resource('monster', 'MonsterCrudController');
 });
 
 Route::get('api/article', 'Api\ArticleController@index');
 Route::get('api/article/{id}', 'Api\ArticleController@show');
+
+
+
+//團的新增編輯刪除...等操作
+Route::resource('groups', 'Front\GroupController');
+
+
+
