@@ -37,6 +37,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes();
 
+
+	    // Register CRUD routes
+	    $this->mapWmdgroupRoutes();
+
         $this->mapApiRoutes();
 
         //
@@ -76,4 +80,13 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/api.php');
         });
     }
+
+
+	protected function mapWmdgroupRoutes()
+	{
+		Route::middleware(['web', 'admin'])
+			->prefix('') // or use the prefix from CRUD config
+			->namespace($this->namespace.'\Front')
+			->group(base_path('routes/wmdgroup.php'));
+	}
 }

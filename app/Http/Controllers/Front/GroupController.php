@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class GroupController extends Controller
+class GroupController extends CrudController
 {
     /**
      * Display a listing of the resource.

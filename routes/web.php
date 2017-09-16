@@ -32,8 +32,5 @@ Route::get('api/article/{id}', 'Api\ArticleController@show');
 
 
 
-//團的新增編輯刪除...等操作
-Route::resource('groups', 'Front\GroupController');
-
 
 
