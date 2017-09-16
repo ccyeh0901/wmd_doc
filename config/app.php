@@ -155,12 +155,12 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        Backpack\Base\BaseServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
         /*
         * Backpack Service Providers...
         */
-        Backpack\Base\BaseServiceProvider::class,
         Prologue\Alerts\AlertsServiceProvider::class,
         Backpack\CRUD\CrudServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,

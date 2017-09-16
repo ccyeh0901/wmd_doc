@@ -9,6 +9,7 @@
 //團的新增編輯刪除...等操作
 Route::resource('groups', 'GroupController');
 
+Route::get(config('backpack.base.route_prefix').'/dashboard', 'DashboardController@index');
 
 
 //Route::group([
