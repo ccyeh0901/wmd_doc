@@ -179,6 +179,7 @@ return [
         */
 
 	    Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+	    Recca0120\LaravelTracy\LaravelTracyServiceProvider::class,
 
     ],
 
