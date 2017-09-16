@@ -94,6 +94,8 @@
                     </ul>
                 </li>
 
+                <button class="btn btn-default" data-toggle="control-sidebar">Toggle Right Sidebar</button>
+
 
                 <!-- ======================================= -->
                 <li class="header">{{ trans('backpack::base.user') }}</li>
@@ -103,4 +105,20 @@
         </section>
         <!-- /.sidebar -->
     </aside>
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Content of the sidebar goes here -->
+
+        我是right side bar!!
+    </aside>
+    <!-- The sidebar's background -->
+    <!-- This div must placed right after the sidebar for it to work-->
+    background
+    <div class="control-sidebar-bg"></div>
+
+
+
+
+
+
 @endif
