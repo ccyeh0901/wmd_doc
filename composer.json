@@ -63,9 +63,9 @@
         "preferred-install": "dist"
     },
     "repositories": {
-	"packagist": {
-		"type": "composer",
-		"url": "https://packagist.org"
-	}
+    	"packagist": {
+	    	"type": "composer",
+		    "url": "https://packagist.org"
+	    }
     }
 }
