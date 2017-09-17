@@ -21,6 +21,8 @@ class GroupCrudController extends CrudController
         $this->crud->setModel('App\Models\Group');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/group');
         $this->crud->setEntityNameStrings('group', 'groups');
+        $this->crud->setListView('backpack::crud.different_list', $this->data);
+
 
 	    $this->crud->addField([
 		    // MANDATORY
