@@ -18,10 +18,11 @@ class GroupCrudController extends CrudController
         | BASIC CRUD INFORMATION
         |--------------------------------------------------------------------------
         */
-        $this->crud->setModel('App\Models\Group');
-        $this->crud->setRoute(config('backpack.base.route_prefix') . '/group');
-        $this->crud->setEntityNameStrings('group', 'groups');
-        $this->crud->setListView('backpack::crud.different_list', $this->data);
+        $this->crud->setModel('App\Models\Group'); //指定model
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/group'); //指定路徑， admin/group
+        $this->crud->setEntityNameStrings('group', 'groups'); //設定 db的表格名稱， 要複數
+
+        $this->crud->setListView('backpack::crud.different_list', $this->data); //用setListView 改成不同的view
 
 
 	    $this->crud->addField([
@@ -31,14 +32,14 @@ class GroupCrudController extends CrudController
 		    'type'  => 'text', // the field type (text, number, select, checkbox, etc)
 
 		    // OPTIONAL + example values
-		    'default'    => 'some value', // default value
-		    'hint'       => 'Some hint text', // helpful text, show up after input
+		    'default'    => '', // default value
+		    'hint'       => '一些提示的文字', // helpful text, show up after input
 		    'attributes' => [
-			    'placeholder' => 'Some text when empty',
+			    'placeholder' => '當空的時候的文字',
 			    'class' => 'form-control some-class'
 		    ], // extra HTML attributes and values your input might need
 		    'wrapperAttributes' => [
-			    'class' => 'form-group col-md-12'
+			    'class' => 'form-group col-md-12 rywrapper'
 		    ] // extra HTML attributes for the field wrapper - mostly for resizing fields using the bootstrap column classes
 	    ]);
 
