@@ -3,7 +3,7 @@
 @section('header')
 	<section class="content-header">
 	  <h1>
-	    {{ trans('backpack::crud.add') }} 開團<span>{{ $crud->entity_name }}</span>
+	    {{ trans('crud.add') }} <span>{{ $crud->entity_name }}</span>
 	  </h1>
 	  <ol class="breadcrumb">
 	    <li><a href="{{ url(config('backpack.base.route_prefix'), 'dashboard') }}">{{ trans('backpack::crud.admin') }}</a></li>
