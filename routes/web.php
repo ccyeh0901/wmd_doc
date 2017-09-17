@@ -25,7 +25,10 @@ Route::group([
 ], function () {
 	// CRUD resources and other admin routes
 	CRUD::resource('monster', 'MonsterCrudController');
-	CRUD::resource('group', 'GroupCrudController');
+	CRUD::resource('group', 'GroupCrudController')->with(function () { //加入 admin/group route
+
+		Route::get('unique', 'GroupCrudController@test'); //額外的 route 可在這邊繼續加
+	});
 });
 
 Route::get('api/article', 'Api\ArticleController@index');

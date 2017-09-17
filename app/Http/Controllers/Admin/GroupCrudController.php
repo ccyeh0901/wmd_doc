@@ -22,6 +22,24 @@ class GroupCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/group');
         $this->crud->setEntityNameStrings('group', 'groups');
 
+	    $this->crud->addField([
+		    // MANDATORY
+		    'name'  => 'address', // DB column name (will also be the name of the input)
+		    'label' => 'Street address', // the human-readable label for the input
+		    'type'  => 'text', // the field type (text, number, select, checkbox, etc)
+
+		    // OPTIONAL + example values
+		    'default'    => 'some value', // default value
+		    'hint'       => 'Some hint text', // helpful text, show up after input
+		    'attributes' => [
+			    'placeholder' => 'Some text when empty',
+			    'class' => 'form-control some-class'
+		    ], // extra HTML attributes and values your input might need
+		    'wrapperAttributes' => [
+			    'class' => 'form-group col-md-12'
+		    ] // extra HTML attributes for the field wrapper - mostly for resizing fields using the bootstrap column classes
+	    ]);
+
         /*
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
@@ -115,5 +133,11 @@ class GroupCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
+    }
+
+	public function test()
+	{
+		echo "test";
+
     }
 }

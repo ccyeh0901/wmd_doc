@@ -15,8 +15,8 @@ return [
     'project_name' => 'Backpack',
 
     // Menu logos
-    'logo_lg'   => '<b>Back</b>pack',
-    'logo_mini' => '<b>B</b>p',
+    'logo_lg'   => '<b>訪</b>韓行政網',
+    'logo_mini' => '<b>訪</b>韓',
 
     // Developer or company name. Shown in footer.
     'developer_name' => 'Coconuts',
