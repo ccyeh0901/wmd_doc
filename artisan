@@ -13,6 +13,10 @@
 |
 */
 
+use Symfony\Component\Console\Formatter\OutputFormatter;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Output\ConsoleOutput;
+
 require __DIR__.'/bootstrap/autoload.php';
 
 $app = require_once __DIR__.'/bootstrap/app.php';
@@ -30,9 +34,20 @@ $app = require_once __DIR__.'/bootstrap/app.php';
 
 $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 
+//$status = $kernel->handle(
+//    $input = new Symfony\Component\Console\Input\ArgvInput,
+//    new Symfony\Component\Console\Output\ConsoleOutput
+//);
+
+$outputFormatter = new OutputFormatter(false, [
+	'error' => new OutputFormatterStyle('yellow', 'blue')
+]);
+
+$output = new ConsoleOutput(ConsoleOutput::VERBOSITY_NORMAL, null, $outputFormatter);
+
 $status = $kernel->handle(
-    $input = new Symfony\Component\Console\Input\ArgvInput,
-    new Symfony\Component\Console\Output\ConsoleOutput
+	$input = new Symfony\Component\Console\Input\ArgvInput,
+	$output
 );
 
 /*
