@@ -35,6 +35,9 @@ Route::get('api/article', 'Api\ArticleController@index');
 Route::get('api/article/{id}', 'Api\ArticleController@show');
 
 
-
-
-
+/*切換語系用*/
+Route::post('/locale', array(
+	'before' => 'csrf',
+	'as' => 'language-chooser',
+	'uses' => 'LocaleController@chooser'
+));

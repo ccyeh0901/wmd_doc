@@ -20,7 +20,7 @@ return [
     'save_action_changed_notification' => 'Default behaviour after saving has been changed.',
 
     // Create form
-    'add'                 => 'Add',
+    'add'                 => '성지땅 반문팀 추가',
     'back_to_all'         => 'Back to all ',
     'cancel'              => 'Cancel',
     'add_a_new'           => 'Add a new ',
@@ -137,5 +137,5 @@ return [
 
     // File manager
     'file_manager' => 'File Manager',
-	'lang_switch' => 'Switch Lang'
+    'lang_switch' => '언어전환'
 ];

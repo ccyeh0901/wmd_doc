@@ -20,7 +20,7 @@ return [
     'save_action_changed_notification' => 'Default behaviour after saving has been changed.',
 
     // Create form
-    'add'                 => 'Add',
+    'add'                 => '訪韓團申請',
     'back_to_all'         => 'Back to all ',
     'cancel'              => 'Cancel',
     'add_a_new'           => 'Add a new ',
@@ -137,5 +137,5 @@ return [
 
     // File manager
     'file_manager' => 'File Manager',
-	'lang_switch' => 'Switch Lang'
+    'lang_switch' => '語言切換'
 ];

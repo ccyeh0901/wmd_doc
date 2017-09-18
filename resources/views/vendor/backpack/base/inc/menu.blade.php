@@ -18,6 +18,20 @@
       <!-- ========================================================= -->
 
       <!-- <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> <span>Home</span></a></li> -->
+        <li>
+            <form method="post" action="{{ URL::route('language-chooser') }}"
+                  style="padding:10px;"
+                  class="form-horizontal" role="form">
+                    <label class="" for="locale" style="float:left;color:#fff; padding-top:8px;">{{trans('crud.lang_switch')}}:</label>
+                    <select class="form-control col-sm-2" name="locale" onchange="this.form.submit()" style="width:80px;">
+                        <option value="en">English</option>
+                        <option value="tw"{{ Session::get('locale') === "tw" ? " selected" : "" }}>中文</option>
+                        <option value="kr"{{ Session::get('locale') === "kr" ? " selected" : "" }}>한국어</option>
+                    </select>
+                {{--<input type="submit" value="Choose">--}}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            </form>
+        </li>
 
         @if (Auth::guest())
             <li><a href="{{ url(config('backpack.base.route_prefix', 'admin').'/login') }}">{{ trans('backpack::base.login') }}</a></li>
