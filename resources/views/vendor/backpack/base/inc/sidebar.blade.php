@@ -12,19 +12,19 @@
                 <div class="pull-left info">
                     <p>{{ Auth::user()->name }}</p>
                     <a href="{{ url(config('backpack.base.route_prefix').'/logout') }}"><i class="fa fa-sign-out"></i>
-                        <span>{{ trans('base.logout') }}</span></a>
+                        <span>{{ trans('backpack::base.logout') }}</span></a>
                 </div>
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-             <li class="header">{{ trans('base.administration') }}</li>
+             <li class="header">{{ trans('backpack::base.administration') }}</li>
             <!-- ================================================ -->
                 <!-- ==== Recommended place for admin menu items ==== -->
                 <!-- ================================================ -->
                 <li><a href="{{ url('admin/tag') }}"><i class="fa fa-tag"></i> <span>Manage Tags</span></a></li>
 
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/dashboard') }}"><i
-                                class="fa fa-dashboard"></i> <span>{{ trans('base.dashboard') }}</span></a>
+                                class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a>
                 </li>
 
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/monster') }}"><i
@@ -79,11 +79,11 @@
 
 
 
-                <button class="btn btn-default" data-toggle="control-sidebar">{{trans('base.toggle_right_side_bar')}}</button>
+                <button class="btn btn-default" data-toggle="control-sidebar">{{trans('backpack::base.toggle_right_side_bar')}}</button>
 
 
                 <!-- ======================================= -->
-                <li class="header">{{ trans('base.user') }}</li>
+                <li class="header">{{ trans('backpack::base.user') }}</li>
 
                 <li class="treeview">
                     <a href="#"><i class="fa fa-cogs"></i> <span>我要開團</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -107,7 +107,7 @@
 
 
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/logout') }}"><i class="fa fa-sign-out"></i>
-                        <span>{{ trans('base.logout') }}</span></a></li>
+                        <span>{{ trans('backpack::base.logout') }}</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

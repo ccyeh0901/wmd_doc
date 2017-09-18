@@ -49,7 +49,21 @@ class GroupCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+//        $this->crud->setFromDb();
+
+
+
+	    $this->crud->addColumn('name'); // add a text column, at the end of the stack
+	    $this->crud->addColumn('type'); // add a single column, at the end of the stack
+	    $this->crud->addColumn('wmd_visit_from'); // add a single column, at the end of the stack
+
+
+
+	    $this->crud->addField([
+		    'name'  => 'name',
+		    'label' => trans('backpack::crud.group_name'),
+		    'type'  => 'text',
+	    ]);
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');

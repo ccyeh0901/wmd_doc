@@ -32,7 +32,7 @@ class CreateGroupsTable extends Migration
 	        $table->tinyInteger('contact_method')->nullable(); //聯絡方式
 	        $table->integer('user_id')->unsigned()->nullable(); //是誰開團的
 
-	        $table->string('schedule', 1024)->nullable();  //行程
+	        $table->text('schedule')->nullable();  //行程
 	        $table->text('description')->nullable(); //備註、說明...
 
 	        $table->boolean('verified')->nullable(); //是否通過審核

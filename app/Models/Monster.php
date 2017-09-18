@@ -43,17 +43,17 @@ class Monster extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function article()
+    public function article() //1-n relationship  一篇article 有很多monsters
     {
         return $this->belongsTo('Backpack\NewsCRUD\app\Models\Article', 'select2_from_ajax');
     }
 
-    public function articles()
+    public function articles() //
     {
         return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Article', 'monster_article');
     }
 
-    public function category()
+    public function category() //name = select
     {
         return $this->belongsTo('Backpack\NewsCRUD\app\Models\Category', 'select');
     }
@@ -63,7 +63,7 @@ class Monster extends Model
         return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Category', 'monster_category');
     }
 
-    public function tags()
+    public function tags() //name = tags[]
     {
         return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Tag', 'monster_tag');
     }

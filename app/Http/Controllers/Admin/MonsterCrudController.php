@@ -251,7 +251,7 @@ class MonsterCrudController extends CrudController
 		// SELECTS tab
 		// -----------------
 
-		$this->crud->addField([    // SELECT
+		$this->crud->addField([    // SELECT  一個category 有很多 monsters
 			'label'     => 'Select (1-n relationship)',
 			'type'      => 'select',
 			'name'      => 'select',
@@ -271,7 +271,7 @@ class MonsterCrudController extends CrudController
 			'tab'       => 'Selects',
 		]);
 
-		$this->crud->addField([ // select_from_array
+		$this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 			'name'        => 'select_from_array',
 			'label'       => 'Select_from_array (no relationship, 1-1 or 1-n)',
 			'type'        => 'select_from_array',
@@ -281,7 +281,7 @@ class MonsterCrudController extends CrudController
 			// 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 		]);
 
-		$this->crud->addField([    // SELECT2
+		$this->crud->addField([    // SELECT2 （跟SELECT 是一樣的 只是長得比較好看而已，可以跳過！）
 			'label'     => 'Select2 (1-n relationship)',
 			'type'      => 'select2',
 			'name'      => 'select2',
@@ -291,7 +291,7 @@ class MonsterCrudController extends CrudController
 			'tab'       => 'Selects',
 		]);
 
-		$this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table)
+		$this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table) 很多monsters 有很多categories
 			'label'     => 'Select2_multiple (n-n relationship with pivot table)',
 			'type'      => 'select2_multiple',
 			'name'      => 'categories', // the method that defines the relationship in your Model
@@ -302,7 +302,7 @@ class MonsterCrudController extends CrudController
 			'tab'       => 'Selects',
 		]);
 
-		$this->crud->addField([ // select2_from_array
+		$this->crud->addField([ // select2_from_array 同上 select_from_array，只是比較好看而已，可以跳過！
 			'name'        => 'select2_from_array',
 			'label'       => 'Select2_from_array (no relationship, 1-1 or 1-n)',
 			'type'        => 'select2_from_array',
