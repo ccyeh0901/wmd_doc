@@ -22,26 +22,26 @@ class GroupCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/group'); //指定路徑， admin/group
         $this->crud->setEntityNameStrings('group', 'groups'); //設定 db的表格名稱， 要複數
 
-        $this->crud->setListView('backpack::crud.different_list', $this->data); //用setListView 改成不同的view
+//        $this->crud->setListView('backpack::crud.different_list', $this->data); //用setListView 改成不同的view
 
 
-	    $this->crud->addField([
-		    // MANDATORY
-		    'name'  => 'address', // DB column name (will also be the name of the input)
-		    'label' => 'Street address', // the human-readable label for the input
-		    'type'  => 'text', // the field type (text, number, select, checkbox, etc)
-
-		    // OPTIONAL + example values
-		    'default'    => '', // default value
-		    'hint'       => '一些提示的文字', // helpful text, show up after input
-		    'attributes' => [
-			    'placeholder' => '當空的時候的文字',
-			    'class' => 'form-control some-class'
-		    ], // extra HTML attributes and values your input might need
-		    'wrapperAttributes' => [
-			    'class' => 'form-group col-md-12 rywrapper'
-		    ] // extra HTML attributes for the field wrapper - mostly for resizing fields using the bootstrap column classes
-	    ]);
+//	    $this->crud->addField([
+//		    // MANDATORY
+//		    'name'  => 'address', // DB column name (will also be the name of the input)
+//		    'label' => 'Street address', // the human-readable label for the input
+//		    'type'  => 'text', // the field type (text, number, select, checkbox, etc)
+//
+//		    // OPTIONAL + example values
+//		    'default'    => '', // default value
+//		    'hint'       => '一些提示的文字', // helpful text, show up after input
+//		    'attributes' => [
+//			    'placeholder' => '當空的時候的文字',
+//			    'class' => 'form-control some-class'
+//		    ], // extra HTML attributes and values your input might need
+//		    'wrapperAttributes' => [
+//			    'class' => 'form-group col-md-12 rywrapper'
+//		    ] // extra HTML attributes for the field wrapper - mostly for resizing fields using the bootstrap column classes
+//	    ]);
 
         /*
         |--------------------------------------------------------------------------
