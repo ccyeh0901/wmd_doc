@@ -86,20 +86,14 @@
                 <li class="header">{{ trans('backpack::base.user') }}</li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-cogs"></i> <span>我要開團</span> <i class="fa fa-angle-left pull-right"></i></a>
+                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓團管理</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/elfinder') }}"><i
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
                                         class="fa fa-files-o"></i>
-                                <span>進行開團</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/backup') }}"><i
+                                <span>我要開團</span></a></li>
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
                                         class="fa fa-hdd-o"></i>
                                 <span>管理已開團項目</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/log') }}"><i
-                                        class="fa fa-terminal"></i>
-                                <span>Logs</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/setting') }}"><i
-                                        class="fa fa-cog"></i>
-                                <span>Settings</span></a></li>
                     </ul>
                 </li>
 
