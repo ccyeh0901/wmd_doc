@@ -233,7 +233,7 @@ class MonsterCrudController extends CrudController
 			'end_default'        => '2017-04-05 02:00', // default value for end_date
 			'date_range_options' => [ // options sent to daterangepicker.js
 				'timePicker' => true,
-				'locale'     => ['format' => 'DD/MM/YYYY HH:mm'],
+				'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
 			],
 			'tab'                => 'Time and space',
 		]);

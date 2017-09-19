@@ -24,6 +24,8 @@ class Monster extends Model
     // protected $dates = [];
     protected $casts = [
         'address' => 'array',
+	    'start_date' => 'datetime', // by RY
+	    'end_date' => 'datetime',
     ];
 
     /*
