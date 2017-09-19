@@ -7,6 +7,6 @@
  */
 
 //團的新增編輯刪除...等操作
-Route::resource('group', 'GroupController');
+//Route::resource('group', 'GroupController');
 
 Route::get(config('backpack.base.route_prefix').'/dashboard', 'DashboardController@index'); //這邊客製化 dashboard 套用自己的Controller

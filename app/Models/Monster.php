@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Monster extends Model
 {
-    use CrudTrait;
+    use CrudTrait; //!!
 
     /*
     |--------------------------------------------------------------------------
