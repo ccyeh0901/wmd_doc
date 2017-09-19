@@ -70,7 +70,7 @@ class GroupCrudController extends CrudController
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'        => 'type',
 		    'label'       => '類型',
-		    'type'        => 'select_from_array',
+		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
 		    'allows_null' => false,
 		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -80,7 +80,7 @@ class GroupCrudController extends CrudController
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'        => 'type',
 		    'label'       => '類型',
-		    'type'        => 'select_from_array',
+		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
 		    'allows_null' => false,
 		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
@@ -140,31 +140,51 @@ class GroupCrudController extends CrudController
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'        => 'contact_method',
 		    'label'       => '聯絡方式',
-		    'type'        => 'select_from_array',
+		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '手機', '1' => 'Kaokaotalk', '2' => 'Line'],
 		    'allows_null' => false,
 	    ]);
 
+	    $this->crud->addField([   // 行程規劃
+		    'name'          => 'schedule',
+		    'label'         => '行程規劃',
+		    'type'          => 'custom_schedule',
+		    // optional
+		    'store_as_json' => true,
+	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
+	    $this->crud->addField([   // 編輯器，big64
+		    'name'  => 'description',
+		    'label' => '訪韓團描述',
+		    'type'  => 'summernote',
+		    //'options' => ['height' => 150],
+	    ]);
 
 
+	    $this->crud->addField([
+		    'name'    => 'verified', // the name of the db column
+		    'label'   => '通過審核與否', // the input label
+		    'type'    => 'radio',
+		    'options' => [ // the key will be stored in the db, the value will be shown as label;
+			    0 => '未通過',
+			    1 => '已通過',
+		    ],
+		    // optional
+		    'inline'  => true, // show the radios all on the same line?
+
+	    ]);
 
 
+	    $this->crud->addField([   // URL
+		    'name' => 'apply_url',
+		    'label' => '報名網址',
+		    'type' => 'url',
+		    'attributes' => ['disabled' => 'disabled'],
+	    ]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+//	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
 
 
 	    // ------ CRUD FIELDS
