@@ -19,7 +19,7 @@ class Schedule extends Model
     //protected $primaryKey = 'id';
     // public $timestamps = false;
     // protected $guarded = ['id'];
-    // protected $fillable = [];
+	protected $fillable = ['schedule'];
     // protected $hidden = [];
     // protected $dates = [];
 

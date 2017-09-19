@@ -148,7 +148,7 @@ class GroupCrudController extends CrudController
 	    $this->crud->addField([   // 行程規劃
 		    'name'          => 'schedule',
 		    'label'         => '行程規劃',
-		    'type'          => 'custom_schedule',
+		    'type'          => 'schedule_order',
 		    // optional
 		    'store_as_json' => true,
 	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;

@@ -94,6 +94,10 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
                                         class="fa fa-hdd-o"></i>
                                 <span>管理已開團項目</span></a></li>
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/schedule') }}"><i
+                                        class="fa fa-hdd-o"></i>
+                                <span>管理行程</span></a></li>
+
                     </ul>
                 </li>
 

@@ -28,7 +28,18 @@ class ScheduleCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        $this->crud->setFromDb();
+        //$this->crud->setFromDb();
+	    $this->crud->addField([   // 行程規劃
+		    'name'          => 'schedule',
+		    'label'         => '行程規劃',
+		    'type'          => 'schedule_menu',
+		    // optional
+		    'store_as_json' => true,
+	    ]);
+	    $this->crud->addColumn('schedule'); // add a single column, at the end of the stack
+
+
+
 
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
