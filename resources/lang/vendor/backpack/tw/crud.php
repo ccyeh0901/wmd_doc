@@ -20,7 +20,7 @@ return [
 	'save_action_changed_notification'        => 'Default behaviour after saving has been changed.',
 
 	// Create form
-	'add'                                     => '訪韓團申請',
+	'add'                                     => '新增',
 	'back_to_all'                             => '回到所有',
 	'cancel'                                  => '取消',
 	'add_a_new'                               => '新增一個 ',
