@@ -24,7 +24,7 @@ class Monster extends Model
     // protected $dates = [];
     protected $casts = [
         'address' => 'array',
-	    'start_date' => 'datetime', // by RY
+	    'start_date' => 'datetime', // by RY 把它轉成Carbon 的資料型態
 	    'end_date' => 'datetime',
     ];
 
