@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\GroupRequest as StoreRequest;
 use App\Http\Requests\GroupRequest as UpdateRequest;
+use Carbon\Carbon;
 
 class GroupCrudController extends CrudController
 {
@@ -76,6 +77,73 @@ class GroupCrudController extends CrudController
 	    ]);
 
 
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'type',
+		    'label'       => '類型',
+		    'type'        => 'select_from_array',
+		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
+		    'allows_null' => false,
+		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
+	    $this->crud->addField([ // Date_range
+		    'name'               => 'date_range1', // a unique name for this field
+		    'start_name'         => 'arriving_date', // the db column that holds the start_date
+		    'end_name'           => 'leaving_date', // the db column that holds the end_date
+		    'label'              => '韓國出入境時間',
+		    'type'               => 'date_range',
+		    // OPTIONALS
+		    'start_default'      => Carbon::now(), // default value for start_date
+		    'end_default'        => Carbon::now(), // default value for end_date
+		    'date_range_options' => [ // options sent to daterangepicker.js
+			    'timePicker' => true,
+			    'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
+		    ],
+	    ]);
+
+
+	    $this->crud->addField([ // Date_range
+		    'name'               => 'date_range2', // a unique name for this field
+		    'start_name'         => 'wmd_visit_from', // the db column that holds the start_date
+		    'end_name'           => 'wmd_visit_end', // the db column that holds the end_date
+		    'label'              => '月明洞停留期間',
+		    'type'               => 'date_range',
+		    // OPTIONALS
+		    'start_default'      => Carbon::now(), // default value for start_date
+		    'end_default'        => Carbon::now(), // default value for end_date
+		    'date_range_options' => [ // options sent to daterangepicker.js
+			    'timePicker' => true,
+			    'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
+		    ],
+	    ]);
+
+
+	    $this->crud->addField([   // Number
+		    'name'  => 'estimated_number',
+		    'label' => '預估人數',
+		    'type'  => 'number',
+		    // optionals
+		    // 'attributes' => ["step" => "any"], // allow decimals
+		    // 'prefix' => "$",
+		    // 'suffix' => ".00",
+	    ]);
+
+
+	    $this->crud->addField([
+		    'name'  => 'leader_name',
+		    'label' => '團長姓名',
+		    'type'  => 'text',
+	    ]);
+
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'contact_method',
+		    'label'       => '聯絡方式',
+		    'type'        => 'select_from_array',
+		    'options'     => ['0' => '手機', '1' => 'Kaokaotalk', '2' => 'Line'],
+		    'allows_null' => false,
+	    ]);
 
 
 
@@ -88,7 +156,18 @@ class GroupCrudController extends CrudController
 
 
 
-        // ------ CRUD FIELDS
+
+
+
+
+
+
+
+
+
+
+
+	    // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');

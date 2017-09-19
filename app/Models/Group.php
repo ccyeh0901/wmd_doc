@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
@@ -23,9 +23,14 @@ class Group extends Model
 
     // protected $hidden = [];
     // protected $dates = [];
-//	protected $casts = [
-//		'address' => 'array',
-//	];
+	protected $casts = [
+		'address' => 'array',
+		'arriving_date'  => 'datetime',
+		'leaving_date'   => 'datetime',
+		'wmd_visit_from' => 'datetime',
+		'wmd_visit_end'  => 'datetime',
+
+	];
 
     /*
     |--------------------------------------------------------------------------
