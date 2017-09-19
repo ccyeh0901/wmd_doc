@@ -65,6 +65,29 @@ class GroupCrudController extends CrudController
 		    'type'  => 'text',
 	    ]);
 
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'type',
+		    'label'       => '類型',
+		    'type'        => 'select_from_array',
+		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
+		    'allows_null' => false,
+		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // ------ CRUD FIELDS
         // $this->crud->addField($options, 'update/create/both');
         // $this->crud->addFields($array_of_arrays, 'update/create/both');

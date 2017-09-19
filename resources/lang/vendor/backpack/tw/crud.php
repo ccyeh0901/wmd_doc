@@ -14,23 +14,23 @@ return [
 	*/
 
 	// Forms
-	'save_action_save_and_new'                => 'Save and new item',
-	'save_action_save_and_edit'               => 'Save and edit this item',
-	'save_action_save_and_back'               => '存檔＆回上頁',
+	'save_action_save_and_new'                => '存檔＆新增',
+	'save_action_save_and_edit'               => '存檔＆繼續編輯',
+	'save_action_save_and_back'               => '存檔＆回列表',
 	'save_action_changed_notification'        => 'Default behaviour after saving has been changed.',
 
 	// Create form
 	'add'                                     => '訪韓團申請',
-	'back_to_all'                             => 'Back to all ',
+	'back_to_all'                             => '回到所有',
 	'cancel'                                  => '取消',
 	'add_a_new'                               => '新增一個 ',
 
 	// Edit form
-	'edit'                                    => 'Edit',
-	'save'                                    => 'Save',
+	'edit'                                    => '編輯',
+	'save'                                    => '儲存',
 
 	// Revisions
-	'revisions'                               => 'Revisions',
+	'revisions'                               => '歷史版本',
 	'no_revisions'                            => 'No revisions found',
 	'created_this'                            => 'created this',
 	'changed_the'                             => 'changed the',

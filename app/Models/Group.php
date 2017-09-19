@@ -44,32 +44,46 @@ class Group extends Model
     |--------------------------------------------------------------------------
     */
 
-	public function article()
+	public function article() //屬於哪篇文章
 	{
 		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Article', 'select2_from_ajax');
 	}
 
-	public function articles()
+	public function articles() //跨文章
 	{
 		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Article', 'monster_article');
 	}
 
-	public function category()
+	public function category() //屬於哪個分類
 	{
 		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Category', 'select');
 	}
 
-	public function categories()
+	public function categories() //跨分類
 	{
 		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Category', 'monster_category');
 	}
 
-	public function tags()
+	public function tags()  //跨標籤
 	{
 		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Tag', 'monster_tag');
 	}
 
 
+	public function groups() //載入某一個團的副團s
+	{
+		return $this->hasMany(__CLASS__, 'parent_id');
+	}
+
+	public function allGroups() //某個團底下的所有的副團
+	{
+		return $this->groups()->with(__FUNCTION__);
+	}
+
+	public function user() //誰開的團
+	{
+		return $this->belongsTo(User::class, 'user_id');
+	}
 
     /*
     |--------------------------------------------------------------------------
