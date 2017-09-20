@@ -1,7 +1,42 @@
-<!-- field_type_name -->
+<!-- 行程菜單的欄位 -->
 
 <div @include('crud::inc.field_wrapper_attributes') >
     <label>{!! $field['label'] !!}</label>
+
+
+    {{--這邊要把 json資料做分析， 然後做結構化的呈現！--}}
+
+    <?php xdebug_break()?>
+
+
+    @foreach ( reset($field['value']) as $key => $var )
+
+        <hr>{{$key}}<hr>
+        {{--{{var_dump($var['value'])}}--}}
+
+        @foreach ($var['value'] as $k => $v)
+
+
+            <div class="input-group col-sm-10">
+             {{--{{$v['name']}} <br>--}}
+            <input type="text"
+                   name="{{ $var['name']}}[]"
+                   value="{{$v['name']}}"
+                    @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
+            >
+                <span class="input-group-btn"><button class="btn btn-danger {{$var['name']}}" type="button">刪除</button></span>
+
+            </div>
+
+
+        @endforeach
+
+        <button class="btn btn-primary {{$var['name']}}">+增加項目</button>
+
+
+
+    @endforeach
+
     <input type="text"
             name="{{ $field['name'] }}"
             value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
@@ -35,7 +70,19 @@
 
     @push('crud_fields_scripts')
         <!-- no scripts -->
-        <script></script>
+        <script>
+            jQuery(document).ready(function($) {
+
+
+
+
+
+
+
+            });
+
+        </script>
+
     @endpush
 @endif
 

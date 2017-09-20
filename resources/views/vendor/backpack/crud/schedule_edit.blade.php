@@ -22,10 +22,9 @@
 		@endif
 
 		@include('crud::inc.grouped_errors')
-
 		  {!! Form::open(array('url' => $crud->route.'/'.$entry->getKey(), 'method' => 'put', 'files'=>$crud->hasUploadFields('update', $entry->getKey()))) !!}
 		  <div class="box">
-		    <div class="box-header with-border">
+		    <div class="box-header with-border"> {{--資料列表上方header--}}
 		    	@if ($crud->model->translationEnabled())
 			    	<!-- Single button -->
 					<div class="btn-group pull-right">
@@ -33,6 +32,7 @@
 					    {{trans('backpack::crud.language')}}: {{ $crud->model->getAvailableLocales()[$crud->request->input('locale')?$crud->request->input('locale'):App::getLocale()] }} <span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu">
+
 					  	@foreach ($crud->model->getAvailableLocales() as $key => $locale)
 						  	<li><a href="{{ url($crud->route.'/'.$entry->getKey().'/edit') }}?locale={{ $key }}">{{ $locale }}</a></li>
 					  	@endforeach
@@ -43,12 +43,12 @@
 					<h3 class="box-title">{{ trans('backpack::crud.edit') }}</h3>
 				@endif
 		    </div>
-		    <div class="box-body row">
+		    <div class="box-body row"> {{--真正資料的地方--}}
 		      <!-- load the view from the application if it exists, otherwise load the one in the package -->
 		      @if(view()->exists('vendor.backpack.crud.form_content'))
 		      	@include('vendor.backpack.crud.form_content', ['fields' => $fields, 'action' => 'edit'])
 		      @else
-		      	@include('crud::form_content', ['fields' => $fields, 'action' => 'edit'])
+		      	@include('crud::schedule_form_content', ['fields' => $fields, 'action' => 'edit']){{--載入 form的內容 blade, 請看schedule_form_content.blade.php--}}
 		      @endif
 		    </div><!-- /.box-body -->
 

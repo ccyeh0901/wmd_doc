@@ -127,7 +127,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/list.css') }}">
 
     <!-- CRUD LIST CONTENT - crud_list_styles stack -->
-    @stack('crud_list_styles')
+    @stack('crud_list_styles') {{--這邊把每一種欄位透過push 放到stack 的css js 一起都撈出來--}}
 @endsection
 
 @section('after_scripts')

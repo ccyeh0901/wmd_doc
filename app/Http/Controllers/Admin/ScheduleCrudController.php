@@ -40,6 +40,7 @@ class ScheduleCrudController extends CrudController
 
 
 	    $this->crud->setListView('backpack::crud.schedule_list', $this->data); //用setListView 改成不同的view
+	    $this->crud->setEditView('backpack::crud.schedule_edit', $this->data);
 
 
 
@@ -136,12 +137,20 @@ class ScheduleCrudController extends CrudController
 	public function index()
 	{
 
-		parent::index();
 
-		//dd("test");
-		echo('test');
-		return view($this->crud->getListView(), $this->data);
+		// your additional operations before save here
+		$redirect_location = parent::index();
+
+		// your additional operations after save here
+		// use $this->data['entry'] or $this->crud->entry
 
 
+
+//		$sch_array = $this->data['entries']->first()->schedule;
+
+		//todo: 做出行程的列表出來將 schedule 裡頭僅有一筆的紀錄撈出來即可，分析 裡頭的json 然後把各個行程套餐撈出來～
+
+
+		return $redirect_location;
 	}
 }

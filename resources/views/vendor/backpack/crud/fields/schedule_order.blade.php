@@ -1,5 +1,4 @@
-<!-- field_type_name -->
-
+<!-- 開團者 選擇了什麼行程的欄位 -->
 <div @include('crud::inc.field_wrapper_attributes') >
     <label>{!! $field['label'] !!}</label>
     <input type="text"
@@ -23,7 +22,17 @@
         <!-- no styles -->
 
 
-        <script src=""></script>
+        <script>
+
+            jQuery(document).ready(function($) {
+
+
+
+
+
+            });
+
+        </script>
 
 
     @endpush
