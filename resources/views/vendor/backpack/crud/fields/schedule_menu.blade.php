@@ -4,13 +4,13 @@
     <label>{!! $field['label'] !!}</label>
     <input type="text"
             name="{{ $field['name'] }}"
-            value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? $field['value'] : (isset($field['default']) ? $field['default'] : '' )) }}"
-            @include('crud::inc.field_attributes')
+            value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
+            @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
     >
 
     {{-- HINT --}}
     @if (isset($field['hint']))
-        <p class="help-block">{!! $field['hint'] !!}</p>
+        <p class="help-block">{!! $field['hint'] !!}</p> {{--加入提示的設定--}}
     @endif
 </div>
 
