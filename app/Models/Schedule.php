@@ -23,6 +23,10 @@ class Schedule extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+	protected $casts = [
+		//'schedule' => 'string', //從model 調出來的時候立馬轉換成 指定的資料型態，以利後續處理， 但是會有問題啊～
+	];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -46,6 +50,11 @@ class Schedule extends Model
     | ACCESORS
     |--------------------------------------------------------------------------
     */
+
+	public function getScheduleAsArray($value)
+	{
+		return json_decode($value);
+	}
 
     /*
     |--------------------------------------------------------------------------

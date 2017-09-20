@@ -35,6 +35,7 @@
 
     @push('crud_fields_scripts')
         <!-- no scripts -->
+        <script></script>
     @endpush
 @endif
 

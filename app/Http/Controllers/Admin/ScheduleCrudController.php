@@ -28,7 +28,7 @@ class ScheduleCrudController extends CrudController
         |--------------------------------------------------------------------------
         */
 
-        //$this->crud->setFromDb();
+//        $this->crud->setFromDb();
 	    $this->crud->addField([   // 行程規劃
 		    'name'          => 'schedule',
 		    'label'         => '行程規劃',
@@ -37,6 +37,9 @@ class ScheduleCrudController extends CrudController
 		    'store_as_json' => true,
 	    ]);
 	    $this->crud->addColumn('schedule'); // add a single column, at the end of the stack
+
+
+	    $this->crud->setListView('backpack::crud.schedule_list', $this->data); //用setListView 改成不同的view
 
 
 
@@ -127,4 +130,18 @@ class ScheduleCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
+
+
+
+	public function index()
+	{
+
+		parent::index();
+
+		//dd("test");
+		echo('test');
+		return view($this->crud->getListView(), $this->data);
+
+
+	}
 }
