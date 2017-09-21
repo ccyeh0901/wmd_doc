@@ -3,8 +3,15 @@
     <label>{!! $field['label'] !!}</label>
     @include('crud::inc.field_translatable_icon')
 
+    <?php xdebug_break()?>
+
     @if(isset($field['prefix']) || isset($field['suffix'])) <div class="input-group"> @endif
         @if(isset($field['prefix'])) <div class="input-group-addon">{!! $field['prefix'] !!}</div> @endif
+        <?php if(isset($field['value']) && is_array($field['value'])) {
+        	$field['value'] = json_encode($field['value']);
+        }
+
+        ?>
         <input
             type="text"
             name="{{ $field['name'] }}"
