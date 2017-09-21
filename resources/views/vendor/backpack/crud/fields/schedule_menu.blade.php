@@ -17,7 +17,7 @@
 
         <div class="set">
             @foreach ($var['value'] as $k => $v)
-                <div class="row input-group col-sm-10">
+                <div class="row input-group col-sm-12">
                     {{--{{$v['name']}} <br>--}}
                     <input type="text"
                            name="{{ $var['name']}}[]"
@@ -56,6 +56,13 @@
     @push('crud_fields_styles')
         <!-- no styles -->
         <style>
+            div.set{
+                margin:10px;
+            }
+
+            div.set > button {
+                margin:10px;
+            }
 
 
         </style>
@@ -80,7 +87,7 @@
                     var row = $(this).parent().children(".row").last();
                     var inputname = row.children('input').attr("name");
                     //set.after("<div class='list_block'><input type='checkbox' id='inlist_" + num + "' name='invited[]' value='" + item + "' /> " + item + "</div>");
-                    row.after('<div class="row input-group col-sm-10"> <input type="text" name="'+ inputname +   '" value="" class="form-control"> <span class="input-group-btn"><button class="btn btn-default delete_item" type="button">刪除</button></span></div>');
+                    row.after('<div class="row input-group col-sm-12"> <input type="text" name="'+ inputname +   '" value="" class="form-control"> <span class="input-group-btn"><button class="btn btn-default delete_item" type="button">刪除</button></span></div>');
 
                 });
 
