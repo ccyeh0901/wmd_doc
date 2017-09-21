@@ -45,8 +45,8 @@
 		    </div>
 		    <div class="box-body row"> {{--真正資料的地方--}}
 		      <!-- load the view from the application if it exists, otherwise load the one in the package -->
-		      @if(view()->exists('vendor.backpack.crud.form_content'))
-		      	@include('vendor.backpack.crud.form_content', ['fields' => $fields, 'action' => 'edit'])
+		      @if(view()->exists('vendor.backpack.crud.schedule_form_content')){{--判斷resource底下的view/vendor有沒有這個view--}}
+		      	@include('vendor.backpack.crud.schedule_form_content', ['fields' => $fields, 'action' => 'edit'])
 		      @else
 		      	@include('crud::schedule_form_content', ['fields' => $fields, 'action' => 'edit']){{--載入 form的內容 blade, 請看schedule_form_content.blade.php--}}
 		      @endif
