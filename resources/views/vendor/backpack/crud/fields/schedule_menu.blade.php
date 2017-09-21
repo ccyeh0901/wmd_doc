@@ -40,7 +40,7 @@
             name="{{ $field['name'] }}"
             value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
             @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
-    >
+    style="display: none;">
 
     {{-- HINT --}}
     @if (isset($field['hint']))

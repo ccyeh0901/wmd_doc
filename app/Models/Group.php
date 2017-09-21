@@ -29,6 +29,7 @@ class Group extends Model
 		'leaving_date'   => 'datetime',
 		'wmd_visit_from' => 'datetime',
 		'wmd_visit_end'  => 'datetime',
+		'schedule' => 'array'
 
 	];
 

@@ -64,6 +64,7 @@ class GroupCrudController extends CrudController
 		    'name'  => 'name',
 		    'label' => trans('backpack::crud.group_name'),
 		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -73,6 +74,7 @@ class GroupCrudController extends CrudController
 		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
 		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
 		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
 
@@ -83,6 +85,7 @@ class GroupCrudController extends CrudController
 		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '中央團', '1' => '教會團', '2' => '工作隊'],
 		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
 		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
 
@@ -100,6 +103,7 @@ class GroupCrudController extends CrudController
 			    'timePicker' => true,
 			    'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
 		    ],
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -116,6 +120,7 @@ class GroupCrudController extends CrudController
 			    'timePicker' => true,
 			    'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
 		    ],
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -127,6 +132,7 @@ class GroupCrudController extends CrudController
 		    // 'attributes' => ["step" => "any"], // allow decimals
 		    // 'prefix' => "$",
 		    // 'suffix' => ".00",
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -134,6 +140,7 @@ class GroupCrudController extends CrudController
 		    'name'  => 'leader_name',
 		    'label' => '團長姓名',
 		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -143,15 +150,8 @@ class GroupCrudController extends CrudController
 		    'type'        => 'select2_from_array',
 		    'options'     => ['0' => '手機', '1' => 'Kaokaotalk', '2' => 'Line'],
 		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
-
-	    $this->crud->addField([   // 行程規劃
-		    'name'          => 'schedule',
-		    'label'         => '行程規劃',
-		    'type'          => 'schedule_order',
-		    // optional
-		    'store_as_json' => true,
-	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
 	    $this->crud->addField([   // 編輯器，big64
@@ -159,6 +159,7 @@ class GroupCrudController extends CrudController
 		    'label' => '訪韓團描述',
 		    'type'  => 'summernote',
 		    //'options' => ['height' => 150],
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
 
@@ -172,6 +173,7 @@ class GroupCrudController extends CrudController
 		    ],
 		    // optional
 		    'inline'  => true, // show the radios all on the same line?
+		    'tab'   => trans('backpack::crud.main_tab')
 
 	    ]);
 
@@ -181,7 +183,17 @@ class GroupCrudController extends CrudController
 		    'label' => '報名網址',
 		    'type' => 'url',
 		    'attributes' => ['disabled' => 'disabled'],
+		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
+
+	    $this->crud->addField([   // 行程規劃
+		    'name'          => 'schedule',
+		    'label'         => '行程規劃',
+		    'type'          => 'schedule_menu',
+		    // optional
+		    'store_as_json' => true,
+		    'tab'   => trans('backpack::crud.schedule_tab')
+	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
 //	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);

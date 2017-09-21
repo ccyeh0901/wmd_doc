@@ -139,4 +139,6 @@ return [
 	'file_manager'                            => 'File Manager',
 	'lang_switch'                             => '語言切換',
 	'group_name'                              => '團名',
+	'schedule_tab'                            => 'Schedule', //這個不能是中文
+	'main_tab'                                => 'Main'
 ];
