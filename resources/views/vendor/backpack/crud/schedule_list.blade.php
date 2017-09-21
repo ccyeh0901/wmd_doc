@@ -51,7 +51,7 @@
                             @endif
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody> {{--列表資料的部分--}}
 
                         @if (!$crud->ajaxTable())
                             @foreach ($entries as $k => $entry)
@@ -64,7 +64,7 @@
                                     {{-- load the view from the application if it exists, otherwise load the one in the package --}}
                                     @foreach ($crud->columns as $column)
                                         @if (!isset($column['type']))
-                                            @include('crud::columns.text')
+                                            @include('crud::columns.schedule_text')
                                         @else
                                             @if(view()->exists('vendor.backpack.crud.columns.'.$column['type']))
                                                 @include('vendor.backpack.crud.columns.'.$column['type'])
@@ -72,7 +72,7 @@
                                                 @if(view()->exists('crud::columns.'.$column['type']))
                                                     @include('crud::columns.'.$column['type'])
                                                 @else
-                                                    @include('crud::columns.text')
+                                                    @include('crud::columns.schedule_text')
                                                 @endif
                                             @endif
                                         @endif
