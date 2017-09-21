@@ -25,6 +25,10 @@ class GroupCrudController extends CrudController
 
 //        $this->crud->setListView('backpack::crud.different_list', $this->data); //用setListView 改成不同的view
 
+//	    $this->crud->setListView('backpack::crud.schedule_list', $this->data); //用setListView 改成不同的view
+//	    $this->crud->setEditView('backpack::crud.schedule_edit', $this->data);
+//	    $this->crud->setCreateView('backpack::crud.schedule_create', $this->data);
+
 
 //	    $this->crud->addField([
 //		    // MANDATORY
@@ -186,10 +190,14 @@ class GroupCrudController extends CrudController
 		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
+
+
+	    /* 以下是行程規劃的code */
+
 	    $this->crud->addField([   // 行程規劃
 		    'name'          => 'schedule',
 		    'label'         => '行程規劃',
-		    'type'          => 'schedule_menu',
+		    'type'          => 'group_text',
 		    // optional
 		    'store_as_json' => true,
 		    'tab'   => trans('backpack::crud.schedule_tab')
@@ -205,6 +213,18 @@ class GroupCrudController extends CrudController
 		    'tab'         => trans('backpack::crud.schedule_tab'),
 		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
+
+
+//	    $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table) 很多monsters 有很多categories
+//		    'label'     => '複選功能',
+//		    'type'      => 'select2_multiple',
+//		    'name'      => 'categories', // the method that defines the relationship in your Model
+//		    'entity'    => 'categories', // the method that defines the relationship in your Model
+//		    'attribute' => 'name', // foreign key attribute that is shown to user
+//		    'model'     => "Backpack\NewsCRUD\app\Models\Category", // foreign key model
+//		    'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
+//		    'tab'       => trans('backpack::crud.schedule_tab'),
+//	    ]);
 
 
 //	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
