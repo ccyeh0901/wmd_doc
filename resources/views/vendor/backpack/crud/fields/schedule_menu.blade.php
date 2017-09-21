@@ -6,38 +6,59 @@
 
     {{--這邊要把 json資料做分析， 然後做結構化的呈現！--}}
 
-    @foreach ( reset($field['value']) as $key => $var )
-
-        <hr>{{$key}}<hr>
-        {{--{{var_dump($var['value'])}}--}}
-
-
-        <div class="set">
-            @foreach ($var['value'] as $k => $v)
-                <div class="row input-group col-sm-12">
-                    {{--{{$v['name']}} <br>--}}
-                    <input type="text"
-                           name="{{ $var['name']}}[]"
-                           value="{{$v['name']}}"
-                            @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
-                    >
-                    <span class="input-group-btn"><button class="btn btn-default delete_item" type="button">刪除</button></span>
-
-                </div>
-            @endforeach
-
-            <button class="btn btn-primary add_item" type="button">+增加項目</button>
-        </div>
+    @if (isset($field['value']))
 
 
 
-    @endforeach
+        @foreach ( reset($field['value']) as $key => $var )
 
-    <input type="text"
-            name="{{ $field['name'] }}"
-            value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
-            @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
-    style="display: none;">
+            <hr>{{$key}}
+            <hr>
+            {{--{{var_dump($var['value'])}}--}}
+
+
+            <div class="set">
+                @foreach ($var['value'] as $k => $v)
+                    <div class="row input-group col-sm-12">
+                        {{--{{$v['name']}} <br>--}}
+                        <input type="text"
+                               name="{{ $var['name']}}[]"
+                               value="{{$v['name']}}"
+                                @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
+                        >
+                        <span class="input-group-btn"><button class="btn btn-default delete_item"
+                                                              type="button">刪除</button></span>
+
+                    </div>
+                @endforeach
+
+                <button class="btn btn-primary add_item" type="button">+增加項目</button>
+            </div>
+
+
+
+        @endforeach
+
+    @endif
+
+    @if (isset($field['value']))
+
+        <input type="text"
+               name="{{ $field['name'] }}"
+               value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
+               @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
+               style="display: none;">
+
+    @else
+        <input type="text"
+               name="{{ $field['name'] }}"
+               value="{{ old($field['name']) ? old($field['name']) : (isset($field['value']) ? json_encode($field['value']) : (isset($field['default']) ? $field['default'] : '' )) }}"
+                @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
+        >
+
+    @endif
+
+
 
     {{-- HINT --}}
     @if (isset($field['hint']))

@@ -196,6 +196,17 @@ class GroupCrudController extends CrudController
 	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'select_from_array',
+		    'label'       => 'Select_from_array (no relationship, 1-1 or 1-n)',
+		    'type'        => 'schedule_select_from_array',
+		    'options'     => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
+		    'allows_null' => false,
+		    'tab'         => trans('backpack::crud.schedule_tab'),
+		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
 //	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
 
 

@@ -41,6 +41,7 @@ class ScheduleCrudController extends CrudController
 
 	    $this->crud->setListView('backpack::crud.schedule_list', $this->data); //用setListView 改成不同的view
 	    $this->crud->setEditView('backpack::crud.schedule_edit', $this->data);
+	    $this->crud->setCreateView('backpack::crud.schedule_create', $this->data);
 
 
 
