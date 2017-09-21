@@ -52,27 +52,27 @@ class Group extends Model
 
 	public function article() //屬於哪篇文章
 	{
-		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Article', 'select2_from_ajax');
+		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Article', 'article_id');
 	}
 
 	public function articles() //跨文章
 	{
-		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Article', 'monster_article');
+		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Article', 'group_article');
 	}
 
 	public function category() //屬於哪個分類
 	{
-		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Category', 'select');
+		return $this->belongsTo('Backpack\NewsCRUD\app\Models\Category', 'category_id');
 	}
 
 	public function categories() //跨分類
 	{
-		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Category', 'monster_category');
+		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Category', 'group_category');
 	}
 
 	public function tags()  //跨標籤
 	{
-		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Tag', 'monster_tag');
+		return $this->belongsToMany('Backpack\NewsCRUD\app\Models\Tag', 'group_tag');
 	}
 
 
