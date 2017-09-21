@@ -14,24 +14,23 @@
         <hr>{{$key}}<hr>
         {{--{{var_dump($var['value'])}}--}}
 
-        @foreach ($var['value'] as $k => $v)
 
+        <div class="set">
+            @foreach ($var['value'] as $k => $v)
+                <div class="row input-group col-sm-10">
+                    {{--{{$v['name']}} <br>--}}
+                    <input type="text"
+                           name="{{ $var['name']}}[]"
+                           value="{{$v['name']}}"
+                            @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
+                    >
+                    <span class="input-group-btn"><button class="btn btn-default delete_item" type="button">刪除</button></span>
 
-            <div class="input-group col-sm-10">
-             {{--{{$v['name']}} <br>--}}
-            <input type="text"
-                   name="{{ $var['name']}}[]"
-                   value="{{$v['name']}}"
-                    @include('crud::inc.field_attributes') {{--加入attribute的設定--}}
-            >
-                <span class="input-group-btn"><button class="btn btn-danger {{$var['name']}}" type="button">刪除</button></span>
+                </div>
+            @endforeach
 
-            </div>
-
-
-        @endforeach
-
-        <button class="btn btn-primary {{$var['name']}}">+增加項目</button>
+            <button class="btn btn-primary add_item" type="button">+增加項目</button>
+        </div>
 
 
 
@@ -59,7 +58,6 @@
         <style>
 
 
-
         </style>
 
     @endpush
@@ -72,10 +70,19 @@
         <!-- no scripts -->
         <script>
             jQuery(document).ready(function($) {
+                $(".btn.delete_item").on('click', function(e) {
+                    var row = $(this).parent().parent();
+                    row.remove();
+                });
 
 
+                $(".btn.add_item").on('click', function(e) {
+                    var row = $(this).parent().children(".row").last();
+                    var inputname = row.children('input').attr("name");
+                    //set.after("<div class='list_block'><input type='checkbox' id='inlist_" + num + "' name='invited[]' value='" + item + "' /> " + item + "</div>");
+                    row.after('<div class="row input-group col-sm-10"> <input type="text" name="'+ inputname +   '" value="" class="form-control"> <span class="input-group-btn"><button class="btn btn-default delete_item" type="button">刪除</button></span></div>');
 
-
+                });
 
 
 
