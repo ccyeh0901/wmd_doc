@@ -6,7 +6,7 @@
 
     {{--這邊要把 json資料做分析， 然後做結構化的呈現！--}}
 
-    <?php xdebug_break()?>
+    <?php /*xdebug_break()*/?>
 
 
     @foreach ( reset($field['value']) as $key => $var )

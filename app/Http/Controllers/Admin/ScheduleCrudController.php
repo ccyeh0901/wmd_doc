@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ScheduleRequest as StoreRequest;
+use App\Http\Requests\ScheduleRequest as UpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
-use App\Http\Requests\ScheduleRequest as StoreRequest;
-use App\Http\Requests\ScheduleRequest as UpdateRequest;
 
 class ScheduleCrudController extends CrudController
 {
@@ -125,11 +125,86 @@ class ScheduleCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
-        // your additional operations before save here
-        $redirect_location = parent::updateCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
+	    $this->crud->hasAccessOrFail('update');
+
+	    // fallback to global request instance
+	    if (is_null($request)) {
+		    $request = \Request::instance();
+	    }
+
+	    // replace empty values with NULL, so that it will work with MySQL strict mode on
+	    foreach ($request->input() as $key => $value) {
+		    if (empty($value) && $value !== '0') {
+			    $request->request->set($key, null);
+		    }
+	    }
+
+	    // update the row in the db 更新在資料庫的資料
+
+	    //json 第一層（行程1) 第二層(清晨、早餐、上午、下午）不需要變動
+
+	    $tmp = json_decode($request->get('schedule'), true);
+
+	    foreach ($tmp as &$it)
+	    {
+		    foreach($it as $k => &$v){
+			    $v['value'] = null; //重置該時段所有行程
+
+		    	switch($v['name']) {
+				    case 'dawn':
+						/*將使用者填寫的內容 一個一個塞進去*/
+				    	foreach($request->get('dawn') as $i){
+				    		$tobe_inserted['name'] = $i;
+						    $tobe_inserted['checked'] = false;
+				    		$v['value'][] = $tobe_inserted;
+					    }
+				    	break;
+				    case 'breakfast':
+					    foreach($request->get('breakfast') as $i){
+						    $tobe_inserted['name'] = $i;
+						    $tobe_inserted['checked'] = false;
+						    $v['value'][] = $tobe_inserted;
+					    }
+				    	break;
+				    case 'morning':
+					    foreach($request->get('morning') as $i){
+						    $tobe_inserted['name'] = $i;
+						    $tobe_inserted['checked'] = false;
+						    $v['value'][] = $tobe_inserted;
+					    }
+
+					    break;
+				    case 'afternoon':
+					    foreach($request->get('afternoon') as $i){
+						    $tobe_inserted['name'] = $i;
+						    $tobe_inserted['checked'] = false;
+						    $v['value'][] = $tobe_inserted;
+					    }
+					    break;
+				    default:
+			    }
+		    }
+		}
+
+		/*現在$tmp就是我們要的東西了*/
+
+//		$request->set('schedule', json_encode($tmp));
+
+	    $request['schedule'] = json_encode($tmp);
+
+	    /*回傳的 $item 是一個 Schedule model*/
+	    $item = $this->crud->update($request->get($this->crud->model->getKeyName()), $request->except('save_action', '_token', '_method'));
+	    $this->data['entry'] = $this->crud->entry = $item;
+
+	    // show a success message
+	    \Alert::success(trans('backpack::crud.update_success'))->flash(); //秀出存檔成功的訊息
+
+	    // save the redirect choice for next time
+	    $this->setSaveAction();  //將此次的save動作記起來 以便下次可以沿用～
+
+	    return $this->performSaveAction($item->getKey()); // performSaveAction 判斷save action 是什麼，然後導向到相關的連結去
+
+
     }
 
 
