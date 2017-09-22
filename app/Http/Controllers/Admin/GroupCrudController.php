@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Schedule;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -61,6 +62,16 @@ class GroupCrudController extends CrudController
 	    $this->crud->addColumn('name'); // add a text column, at the end of the stack
 	    $this->crud->addColumn('type'); // add a single column, at the end of the stack
 	    $this->crud->addColumn('wmd_visit_from'); // add a single column, at the end of the stack
+
+	    $this->crud->addColumn([
+		    'name' => 'verified', // The db column name
+		    'label' => "是否通過審核", // Table column heading
+		    'type' => 'Radio',
+		    'options'     => [
+			    0 => "否",
+			    1 => "是"
+		    ]
+	    ]);
 
 
 
@@ -192,6 +203,27 @@ class GroupCrudController extends CrudController
 
 
 
+
+
+	    /*option 從 schedule table那邊撈過來*/
+
+	    $schedule = Schedule::first()->schedule;
+	    $schedule = [
+	    	'行程1' => 'test'
+	    ];
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'select_from_array',
+		    'label'       => 'Select_from_array (no relationship, 1-1 or 1-n)',
+		    'type'        => 'schedule_select_from_array',
+//		    'options'     => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
+		    'options'     => $schedule,
+		    'allows_null' => false,
+		    'tab'         => trans('backpack::crud.schedule_tab'),
+		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
 	    /* 以下是行程規劃的code */
 
 	    $this->crud->addField([   // 行程規劃
@@ -204,15 +236,7 @@ class GroupCrudController extends CrudController
 	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
-	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
-		    'name'        => 'select_from_array',
-		    'label'       => 'Select_from_array (no relationship, 1-1 or 1-n)',
-		    'type'        => 'schedule_select_from_array',
-		    'options'     => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
-		    'allows_null' => false,
-		    'tab'         => trans('backpack::crud.schedule_tab'),
-		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-	    ]);
+
 
 
 //	    $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table) 很多monsters 有很多categories
