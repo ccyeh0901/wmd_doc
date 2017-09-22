@@ -208,23 +208,47 @@ class GroupCrudController extends CrudController
 	    /*option 從 schedule table那邊撈過來*/
 
 	    $schedule = Schedule::first()->schedule;
-	    $schedule = [
-	    	'行程1' => 'test'
-	    ];
 
-	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
-		    'name'        => 'select_from_array',
-		    'label'       => 'Select_from_array (no relationship, 1-1 or 1-n)',
-		    'type'        => 'schedule_select_from_array',
-//		    'options'     => ['one' => 'One', 'two' => 'Two', 'three' => 'Three'],
-		    'options'     => $schedule,
-		    'allows_null' => false,
-		    'tab'         => trans('backpack::crud.schedule_tab'),
-		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+
+	    $this->crud->addField([   // 顯示行程套餐名稱
+		    'name' => 'name',
+		    'type' => 'custom_html',
+		    'value' => '<h3>'.key($schedule). '</h3><hr>',
+		    'attribute' => 'nth_day',
+		    'tab'   => trans('backpack::crud.schedule_tab')
+
 	    ]);
 
+	    foreach (reset($schedule) as $key => $val) {
 
-	    /* 以下是行程規劃的code */
+//		    $this->crud->addField([   // 顯示時段
+//			    'name' => $key,
+//			    'type' => 'custom_html',
+//			    'value' => $key,
+//			    'attribute' => ['class'=> 'label'],
+//			    'tab'   => trans('backpack::crud.schedule_tab')
+//		    ]);
+
+		    /*開始顯示複選控制項*/
+		    $tmp = null;
+
+		    foreach ($val['value'] as $k => $item) //取出該時段每個項目
+		    {
+			    $tmp[$k] = $item['name']; //<= 我們要的資料！！！
+		    }
+
+		    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+			    'name'        => $val['name'],
+			    'label'       => $key,
+			    'type'        => 'schedule_select_from_array',
+		        'options'     => $tmp,  // 右邊是給使用者看到的內容， 左邊是真正的數值
+			    'allows_null' => false,
+			    'tab'         => trans('backpack::crud.schedule_tab'),
+			    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+		    ]);
+	    }
+
+	    /* 以下是行程規劃的欄位 可先不管*/
 
 	    $this->crud->addField([   // 行程規劃
 		    'name'          => 'schedule',
@@ -234,21 +258,6 @@ class GroupCrudController extends CrudController
 		    'store_as_json' => true,
 		    'tab'   => trans('backpack::crud.schedule_tab')
 	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
-
-
-
-
-
-//	    $this->crud->addField([       // Select2Multiple = n-n relationship (with pivot table) 很多monsters 有很多categories
-//		    'label'     => '複選功能',
-//		    'type'      => 'select2_multiple',
-//		    'name'      => 'categories', // the method that defines the relationship in your Model
-//		    'entity'    => 'categories', // the method that defines the relationship in your Model
-//		    'attribute' => 'name', // foreign key attribute that is shown to user
-//		    'model'     => "Backpack\NewsCRUD\app\Models\Category", // foreign key model
-//		    'pivot'     => true, // on create&update, do you need to add/delete pivot table entries?
-//		    'tab'       => trans('backpack::crud.schedule_tab'),
-//	    ]);
 
 
 //	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
