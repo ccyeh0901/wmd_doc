@@ -22,6 +22,18 @@
         <!-- no styles -->
 
 
+
+
+
+    @endpush
+
+
+    {{-- FIELD EXTRA JS --}}
+    {{-- push things in the after_scripts section --}}
+
+    @push('crud_fields_scripts')
+        <!-- no scripts -->
+
         <script>
 
             jQuery(document).ready(function($) {
@@ -33,16 +45,6 @@
             });
 
         </script>
-
-
-    @endpush
-
-
-    {{-- FIELD EXTRA JS --}}
-    {{-- push things in the after_scripts section --}}
-
-    @push('crud_fields_scripts')
-        <!-- no scripts -->
     @endpush
 @endif
 

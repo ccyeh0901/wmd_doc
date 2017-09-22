@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Schedule;
-use Backpack\CRUD\app\Http\Controllers\CrudController;
-
-// VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\GroupRequest as StoreRequest;
 use App\Http\Requests\GroupRequest as UpdateRequest;
+use App\Models\Schedule;
+use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Carbon\Carbon;
+
+// VALIDATION: change the requests to match your own file names if you need form validation
 
 class GroupCrudController extends CrudController
 {
@@ -210,54 +210,71 @@ class GroupCrudController extends CrudController
 	    $schedule = Schedule::first()->schedule;
 
 
-	    $this->crud->addField([   // 顯示行程套餐名稱
-		    'name' => 'name',
-		    'type' => 'custom_html',
-		    'value' => '<h3>'.key($schedule). '</h3><hr>',
-		    'attribute' => 'nth_day',
-		    'tab'   => trans('backpack::crud.schedule_tab')
 
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'            => 'schedule_detail',
+		    'label'           => '行程規劃',
+		    'type'            => 'schedule_select_from_array',
+		    'options'         => $schedule,  // 右邊是給使用者看到的內容， 左邊是真正的數值
+		    'allows_null'     => false,
+		    'tab'             => trans('backpack::crud.schedule_tab'),
+//		    'attributes'       => ['class' => 'nth_day'],
+		    'wrapperAttributes' => ['class' => 'nth_day'],
+		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
 
-	    foreach (reset($schedule) as $key => $val) {
 
-//		    $this->crud->addField([   // 顯示時段
-//			    'name' => $key,
-//			    'type' => 'custom_html',
-//			    'value' => $key,
-//			    'attribute' => ['class'=> 'label'],
-//			    'tab'   => trans('backpack::crud.schedule_tab')
+
+/*我是分隔線*/
+
+//	    $this->crud->addField([   // 顯示行程套餐名稱
+//		    'name' => 'name',
+//		    'type' => 'custom_html',
+//		    'value' => '<h3>'.key($schedule). '</h3><hr>',
+//		    'attribute' => 'nth_day',
+//		    'tab'   => trans('backpack::crud.schedule_tab')
+//
+//	    ]);
+//
+//	    foreach (reset($schedule) as $key => $val) {
+//
+////		    $this->crud->addField([   // 顯示時段
+////			    'name' => $key,
+////			    'type' => 'custom_html',
+////			    'value' => $key,
+////			    'attribute' => ['class'=> 'label'],
+////			    'tab'   => trans('backpack::crud.schedule_tab')
+////		    ]);
+//
+//		    /*開始顯示複選控制項*/
+//		    $tmp = null;
+//
+//		    foreach ($val['value'] as $k => $item) //取出該時段每個項目
+//		    {
+//			    $tmp[$k] = $item['name']; //<= 我們要的資料！！！
+//		    }
+//
+//		    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+//			    'name'        => $val['name'],
+//			    'label'       => $key,
+//			    'type'        => 'schedule_select_from_array',
+//		        'options'     => $tmp,  // 右邊是給使用者看到的內容， 左邊是真正的數值
+//			    'allows_null' => false,
+//			    'tab'         => trans('backpack::crud.schedule_tab'),
+//			    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 //		    ]);
-
-		    /*開始顯示複選控制項*/
-		    $tmp = null;
-
-		    foreach ($val['value'] as $k => $item) //取出該時段每個項目
-		    {
-			    $tmp[$k] = $item['name']; //<= 我們要的資料！！！
-		    }
-
-		    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
-			    'name'        => $val['name'],
-			    'label'       => $key,
-			    'type'        => 'schedule_select_from_array',
-		        'options'     => $tmp,  // 右邊是給使用者看到的內容， 左邊是真正的數值
-			    'allows_null' => false,
-			    'tab'         => trans('backpack::crud.schedule_tab'),
-			    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-		    ]);
-	    }
-
-	    /* 以下是行程規劃的欄位 可先不管*/
-
-	    $this->crud->addField([   // 行程規劃
-		    'name'          => 'schedule',
-		    'label'         => '行程規劃',
-		    'type'          => 'group_text',
-		    // optional
-		    'store_as_json' => true,
-		    'tab'   => trans('backpack::crud.schedule_tab')
-	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
+//	    }
+//
+//	    /* 以下是行程規劃的欄位 可先不管*/
+//
+//	    $this->crud->addField([   // 行程規劃
+//		    'name'          => 'schedule',
+//		    'label'         => '行程規劃',
+//		    'type'          => 'group_text',
+//		    // optional
+//		    'store_as_json' => true,
+//		    'tab'   => trans('backpack::crud.schedule_tab')
+//	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
 
 
 //	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
