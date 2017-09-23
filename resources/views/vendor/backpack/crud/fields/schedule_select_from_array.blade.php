@@ -160,10 +160,11 @@
                 }
 
                 //將select name 前面加上日期 湊出來會是這樣：2017-09-01sect1[]
-                var tmp_date = new Date();
+//                var tmp_date = new Date(date1);
                 $('.sub_schedule').each(function( index ) { //選出每一天
 
-                    tmp_date.setDate( date1.getDate() + index ); //將日期往前加一天
+                    var tmp_date = new Date(date1);
+                    tmp_date.setDate( date1.getDate() + index ); //將日期往前加一天 setDate 會設定「日」的部分，從這個月開頭算起，若超過該月的範圍，就進到下個月去...
                     $(this).find('h2.day').html(tmp_date.toISOString().split('T')[0]); // tmp_date.toISOString().split('T')[0]： 2017-09-01 這樣的格式
                     $(this).find('select').each(function( idx ) { //挑出每個時段
                         orig_name = this.getAttribute('name');
