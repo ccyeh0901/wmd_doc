@@ -160,13 +160,15 @@
                 }
 
                 //將select name 前面加上日期 湊出來會是這樣：2017-09-01sect1[]
+                var tmp_date = new Date();
                 $('.sub_schedule').each(function( index ) { //選出每一天
 
-                    date1.setDate( date1.getDate() + index ); //將日期往前加一天
-                    $(this).find('h2.day').html(date1.toISOString().split('T')[0]); // date1.toISOString().split('T')[0]： 2017-09-01 這樣的格式
+                    tmp_date.setDate( date1.getDate() + index ); //將日期往前加一天
+                    $(this).find('h2.day').html(tmp_date.toISOString().split('T')[0]); // tmp_date.toISOString().split('T')[0]： 2017-09-01 這樣的格式
                     $(this).find('select').each(function( idx ) { //挑出每個時段
                         orig_name = this.getAttribute('name');
-                        this.setAttribute('name', date1.toISOString().split('T')[0] + this.getAttribute('name'));
+                        var sect_pos = this.getAttribute('name').indexOf("sect");
+                        this.setAttribute('name', tmp_date.toISOString().split('T')[0] + this.getAttribute('name').substr(sect_pos));
                     });
                 });
             }
