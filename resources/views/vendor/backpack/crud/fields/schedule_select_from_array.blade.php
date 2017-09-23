@@ -7,11 +7,10 @@
     <h2 class="day"></h2>
     @include('crud::inc.field_translatable_icon')
 
-    <?php xdebug_break() ?>
     @foreach (reset($field['options']) as $k => $v)
         <hr>{{$v['title']}} {{--時段名稱--}}
         <select
-                name="{{ $v['name'] }}@if (isset($field['allows_multiple']) && $field['allows_multiple']==true)[]@endif"
+                name="sect{{$k}}@if (isset($field['allows_multiple']) && $field['allows_multiple']==true)[]@endif"
                 @include('crud::inc.field_attributes')
                 @if (isset($field['allows_multiple']) && $field['allows_multiple']==true)multiple @endif
         >
@@ -25,8 +24,6 @@
 
 
             @if (count($field['options']))
-
-
                 @foreach ($v['value'] as $key => $value)
                     <option value="{{ $key }}"
                             {{--@if (isset($field['value']) && ($key==$field['value'] || (is_array($field['value']) && in_array($key, $field['value'])))--}}
@@ -90,6 +87,9 @@
                 //$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) { //切換tab的時候觸發
 
 
+                //將行程菜單樣板抓過來後，只會有一天的行程， 順便幫他取上名字，加上名字
+
+                update_schedule_menu($("#wmd_visit_period"));
 
                 $("#wmd_visit_period").change(function (e) { //當日期改變的時候，行程菜單也要跟著調整
                     /*
@@ -97,55 +97,79 @@
                     * 若是修改，就根據上次儲存內容來生成
                     *
                     * 新增：一開始陣列是空的，當設定或調整日期時，行程規劃會根據行程菜單來初始化
-                    *
-                    *
                     * 修改：一開始$schedule是有內容的，行程規劃，根據上次儲存內容生成，若日期修正就跟著修改...
-                    *
-                    *
+                    *       當調整日期時， 就整個打掉（留下第一個）重新產生行程菜單
                     * */
-                    //$('input[name="wmd_visit_from"]').change(function(e){
 
-                    var start = ($(this).val().split(' - ')[0]).split(' ')[0];
-                    var end = ($(this).val().split(' - ')[1]).split(' ')[0]; // end - start returns difference in milliseconds
+                    update_schedule_menu($(this));
 
-                    var date1 = new Date(start);
-                    var date2 = new Date(end);
-                    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-                    diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                    alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
-
-                    $('#tab_schedule > div').not(':first').remove();
-
-
-                    for(i=0; i<diffDays; i++) {
-                        //根據天數 複製行程樣板
-//                        $(".sub_schedule").clone().append(To($("#tab_schedule"));)
-                        $("#tab_schedule").append(function(){
-                            return $("#tab_schedule").find('div').length==0?$(this).clone(): $("#tab_schedule").find('div:first').clone();
-                        });
-                    }
-
-//                    date1.setDate( date1.getDate() + 1 );
+//                    var start = ($(this).val().split(' - ')[0]).split(' ')[0];
+//                    var end = ($(this).val().split(' - ')[1]).split(' ')[0]; // end - start returns difference in milliseconds
 //
-//                    //修改第一天日期
-//                    $('.sub_schedule h2.day').html(date1.toISOString().split('T')[0]);
+//                    var date1 = new Date(start);
+//                    var date2 = new Date(end);
+//                    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+//                    diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+//                    alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
 //
-//                    //將select name 後面加上日期
+//                    $('#tab_schedule > div.sub_schedule').not(':first').remove(); //除了第一個 其他都移除，不行！
 //
 //
-                    $('.sub_schedule').each(function( index ) { //選出每一天
-                        $(this).find('select').each(function( index ) {
-                            orig_name = this.getAttribute('name');
-                            this.setAttribute('name', this.getAttribute('name').substr(0, orig_name.length-2)+date1.toISOString().split('T')[0] + '[]')
-
-                        });
-
-                    });
+//                    for(i=0; i<diffDays; i++) {
+//                        //根據天數 複製行程樣板
+//                        $("#tab_schedule").append(function(){
+//                            return $("#tab_schedule").find('div').length==0?$(this).clone(): $("#tab_schedule").find('div:first').clone();
+//                        });
+//                    }
+//
+//                    //將select name 前面加上日期 湊出來會是這樣：2017-09-01sect1[]
+//                    $('.sub_schedule').each(function( index ) { //選出每一天
+//
+//                        date1.setDate( date1.getDate() + index ); //將日期往前加一天
+//                        $(this).find('h2.day').html(date1.toISOString().split('T')[0]); // date1.toISOString().split('T')[0]： 2017-09-01 這樣的格式
+//                        $(this).find('select').each(function( idx ) { //挑出每個時段
+//                            orig_name = this.getAttribute('name');
+//                            this.setAttribute('name', date1.toISOString().split('T')[0] + this.getAttribute('name'));
+//                        });
+//                    });
 
                 });
 
 
             });
+
+            function update_schedule_menu(period) {
+
+                var start = (period.val().split(' - ')[0]).split(' ')[0];
+                var end = (period.val().split(' - ')[1]).split(' ')[0]; // end - start returns difference in milliseconds
+
+                var date1 = new Date(start);
+                var date2 = new Date(end);
+                var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
+
+                $('#tab_schedule > div.sub_schedule').not(':first').remove(); //除了第一個 其他都移除，不行！
+
+
+                for(i=0; i<diffDays; i++) {
+                    //根據天數 複製行程樣板
+                    $("#tab_schedule").append(function(){
+                        return $("#tab_schedule").find('div').length==0?$(this).clone(): $("#tab_schedule").find('div:first').clone();
+                    });
+                }
+
+                //將select name 前面加上日期 湊出來會是這樣：2017-09-01sect1[]
+                $('.sub_schedule').each(function( index ) { //選出每一天
+
+                    date1.setDate( date1.getDate() + index ); //將日期往前加一天
+                    $(this).find('h2.day').html(date1.toISOString().split('T')[0]); // date1.toISOString().split('T')[0]： 2017-09-01 這樣的格式
+                    $(this).find('select').each(function( idx ) { //挑出每個時段
+                        orig_name = this.getAttribute('name');
+                        this.setAttribute('name', date1.toISOString().split('T')[0] + this.getAttribute('name'));
+                    });
+                });
+            }
 
         </script>
     @endpush
