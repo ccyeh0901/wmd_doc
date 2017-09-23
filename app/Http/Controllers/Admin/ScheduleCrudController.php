@@ -202,11 +202,11 @@ class ScheduleCrudController extends CrudController
 
 	    $total_sect = count(array_filter($request->all(), function ($k) {
 		    return (strpos($k, 'sect_') !== false);
-	    }, ARRAY_FILTER_USE_KEY));
+	    }, ARRAY_FILTER_USE_KEY)); //從request中 過濾出有幾個時段的數目，算出有幾個時段
 
 //	    $old_total_sect = count(reset($tmp));
 
-		/*重做一個新的json array*/
+		/*根據算出的總數，重做一個新的json array*/
 	    for($i=0; $i<$total_sect; $i++) {
 		    $tmp[key($tmp)][] = null;
 	    }
