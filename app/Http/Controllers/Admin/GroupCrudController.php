@@ -135,6 +135,8 @@ class GroupCrudController extends CrudController
 			    'timePicker' => true,
 			    'locale'     => ['format' => 'YYYY-MM-DD HH:mm'],
 		    ],
+		    'attributes'       => ['id' => 'wmd_visit_period'],
+		    //'wrapperAttributes' => ['class' => 'wmd_visit_range'],
 		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
@@ -219,7 +221,7 @@ class GroupCrudController extends CrudController
 		    'allows_null'     => false,
 		    'tab'             => trans('backpack::crud.schedule_tab'),
 //		    'attributes'       => ['class' => 'nth_day'],
-		    'wrapperAttributes' => ['class' => 'nth_day'],
+		    'wrapperAttributes' => ['class' => 'sub_schedule'],
 		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
 
