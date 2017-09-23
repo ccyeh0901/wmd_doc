@@ -207,16 +207,14 @@ class GroupCrudController extends CrudController
 
 
 
-	    /*option 從 schedule table那邊撈過來*/
+	    /*option 從 schedule table那邊撈過來 不需要定義之間的關係性 直接撈 因為他只是config檔*/
 
-	    $schedule = Schedule::first()->schedule;
-
-
+	    $schedule = Schedule::first()->schedule; // 菜單的config 直接帶進去 options
 
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'            => 'schedule_detail',
 		    'label'           => '行程規劃',
-		    'type'            => 'schedule_select_from_array',
+		    'type'            => 'schedule_select_from_array', //自訂的欄位， 裡頭 有所有的行程菜單的選項，會根據日期變動，然後調整行程選單
 		    'options'         => $schedule,  // 右邊是給使用者看到的內容， 左邊是真正的數值
 		    'allows_null'     => false,
 		    'tab'             => trans('backpack::crud.schedule_tab'),
@@ -224,62 +222,6 @@ class GroupCrudController extends CrudController
 		    'wrapperAttributes' => ['class' => 'sub_schedule'],
 		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
-
-
-
-/*我是分隔線*/
-
-//	    $this->crud->addField([   // 顯示行程套餐名稱
-//		    'name' => 'name',
-//		    'type' => 'custom_html',
-//		    'value' => '<h3>'.key($schedule). '</h3><hr>',
-//		    'attribute' => 'nth_day',
-//		    'tab'   => trans('backpack::crud.schedule_tab')
-//
-//	    ]);
-//
-//	    foreach (reset($schedule) as $key => $val) {
-//
-////		    $this->crud->addField([   // 顯示時段
-////			    'name' => $key,
-////			    'type' => 'custom_html',
-////			    'value' => $key,
-////			    'attribute' => ['class'=> 'label'],
-////			    'tab'   => trans('backpack::crud.schedule_tab')
-////		    ]);
-//
-//		    /*開始顯示複選控制項*/
-//		    $tmp = null;
-//
-//		    foreach ($val['value'] as $k => $item) //取出該時段每個項目
-//		    {
-//			    $tmp[$k] = $item['name']; //<= 我們要的資料！！！
-//		    }
-//
-//		    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
-//			    'name'        => $val['name'],
-//			    'label'       => $key,
-//			    'type'        => 'schedule_select_from_array',
-//		        'options'     => $tmp,  // 右邊是給使用者看到的內容， 左邊是真正的數值
-//			    'allows_null' => false,
-//			    'tab'         => trans('backpack::crud.schedule_tab'),
-//			    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
-//		    ]);
-//	    }
-//
-//	    /* 以下是行程規劃的欄位 可先不管*/
-//
-//	    $this->crud->addField([   // 行程規劃
-//		    'name'          => 'schedule',
-//		    'label'         => '行程規劃',
-//		    'type'          => 'group_text',
-//		    // optional
-//		    'store_as_json' => true,
-//		    'tab'   => trans('backpack::crud.schedule_tab')
-//	    ]); // the second parameter for the addField method is the form it should place this field in; specify either 'create', 'update' or 'both'; default is 'both', so you might aswell not mention it;
-
-
-//	    $this->crud->setColumnDetails('name', ['attribute' => '我是數值']);
 
 
 	    // ------ CRUD FIELDS
@@ -360,13 +302,34 @@ class GroupCrudController extends CrudController
         return $redirect_location;
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request) //整個替換掉！
     {
-        // your additional operations before save here
-        $redirect_location = parent::updateCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
+	    $this->crud->hasAccessOrFail('update');
+
+	    // fallback to global request instance
+	    if (is_null($request)) {
+		    $request = \Request::instance();
+	    }
+
+	    // replace empty values with NULL, so that it will work with MySQL strict mode on
+	    foreach ($request->input() as $key => $value) {
+		    if (empty($value) && $value !== '0') {
+			    $request->request->set($key, null);
+		    }
+	    }
+
+	    // update the row in the db
+	    $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
+		    $request->except('save_action', '_token', '_method'));
+	    $this->data['entry'] = $this->crud->entry = $item;
+
+	    // show a success message
+	    \Alert::success(trans('backpack::crud.update_success'))->flash();
+
+	    // save the redirect choice for next time
+	    $this->setSaveAction();
+
+	    return $this->performSaveAction($item->getKey());
     }
 
 	public function test()
