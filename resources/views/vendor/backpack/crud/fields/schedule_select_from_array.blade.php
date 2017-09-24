@@ -49,6 +49,8 @@
 
 
 
+{{--<input name="schedule" type="hidden" value="{{json_encode($field['options'])}}"> --}}{{--偷偷把整個行程菜單樣板轉成array帶到頁面去， 之後傳到後台嗎？ 不必這麼麻煩吧！！！！！--}}
+
 
 @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
     {{-- FIELD EXTRA CSS  --}}
@@ -58,9 +60,6 @@
         <!-- no styles -->
         <style>
             
-            .rystyle{
-                display: block;
-            }
         </style>
 
 
