@@ -21,7 +21,7 @@
             {{--$field['options'] 就是 $schedule--}}
 
 
-
+            {{-- 第一天的樣板是從 Schedule 那邊抓出來產生的～ 之後就用 jquery 來做複製生成 --}}
 
             @if (count($field['options']))
                 @foreach ($v['value'] as $key => $value)
@@ -88,7 +88,7 @@
 
                 //將行程菜單樣板抓過來後，只會有一天的行程， 順便幫他取上名字，加上名字
 
-                update_schedule_menu($("#wmd_visit_period"));
+                update_schedule_menu($("#wmd_visit_period")); //根據所選的日期，產生多天的行程表
 
                 $("#wmd_visit_period").change(function (e) { //當日期改變的時候，行程菜單也要跟著調整
                     /*
@@ -101,36 +101,6 @@
                     * */
 
                     update_schedule_menu($(this));
-
-//                    var start = ($(this).val().split(' - ')[0]).split(' ')[0];
-//                    var end = ($(this).val().split(' - ')[1]).split(' ')[0]; // end - start returns difference in milliseconds
-//
-//                    var date1 = new Date(start);
-//                    var date2 = new Date(end);
-//                    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-//                    diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-//                    alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
-//
-//                    $('#tab_schedule > div.sub_schedule').not(':first').remove(); //除了第一個 其他都移除，不行！
-//
-//
-//                    for(i=0; i<diffDays; i++) {
-//                        //根據天數 複製行程樣板
-//                        $("#tab_schedule").append(function(){
-//                            return $("#tab_schedule").find('div').length==0?$(this).clone(): $("#tab_schedule").find('div:first').clone();
-//                        });
-//                    }
-//
-//                    //將select name 前面加上日期 湊出來會是這樣：2017-09-01sect1[]
-//                    $('.sub_schedule').each(function( index ) { //選出每一天
-//
-//                        date1.setDate( date1.getDate() + index ); //將日期往前加一天
-//                        $(this).find('h2.day').html(date1.toISOString().split('T')[0]); // date1.toISOString().split('T')[0]： 2017-09-01 這樣的格式
-//                        $(this).find('select').each(function( idx ) { //挑出每個時段
-//                            orig_name = this.getAttribute('name');
-//                            this.setAttribute('name', date1.toISOString().split('T')[0] + this.getAttribute('name'));
-//                        });
-//                    });
 
                 });
 

@@ -354,7 +354,9 @@ class GroupCrudController extends CrudController
 		    }
 	    }
 
-	    $request['schedule'] = json_encode($tmp);
+//	    $request['schedule'] = json_encode($tmp);
+	    $request['schedule'] = json_encode($tmp, JSON_UNESCAPED_SLASHES);
+//	    $request['schedule'] = json_encode($tmp);
 
 	    // update the row in the db
 	    $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
