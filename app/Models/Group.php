@@ -86,9 +86,15 @@ class Group extends Model
 		return $this->groups()->with(__FUNCTION__);
 	}
 
-	public function user() //誰開的團
+	public function creator() //誰開的團
 	{
 		return $this->belongsTo(User::class, 'user_id');
+	}
+
+	public function members()
+	{
+		return $this->hasMany(\app\Models\Member, 'group_id');
+
 	}
 
     /*

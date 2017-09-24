@@ -15,11 +15,11 @@ class Member extends Model
     |--------------------------------------------------------------------------
     */
 
-    //protected $table = 'members';
-    //protected $primaryKey = 'id';
+    protected $table = 'members';
+    protected $primaryKey = 'id';
     // public $timestamps = false;
-    // protected $guarded = ['id'];
-    // protected $fillable = [];
+    protected $guarded = ['id'];
+    //protected $fillable = [];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -34,6 +34,12 @@ class Member extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+
+	public function group()
+	{
+		return $this->belongsTo('\app\Models\Group', 'group_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
