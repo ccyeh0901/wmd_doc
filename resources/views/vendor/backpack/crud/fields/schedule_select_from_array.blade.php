@@ -7,7 +7,9 @@
     <h2 class="day"></h2>
     @include('crud::inc.field_translatable_icon')
 
-    @foreach (reset($field['options']) as $k => $v)
+
+
+    @foreach (reset($sch_menu) as $k => $v)
         <hr>{{$v['title']}} {{--時段名稱--}}
         <select
                 name="sect{{$k}}@if (isset($field['allows_multiple']) && $field['allows_multiple']==true)[]@endif"
@@ -18,12 +20,12 @@
             @if (isset($field['allows_null']) && $field['allows_null']==true)
                 <option value="">-</option>
             @endif
-            {{--$field['options'] 就是 $schedule--}}
+            {{--$sch_menu 就是 $schedule--}}
 
 
             {{-- 第一天的樣板是從 Schedule 那邊抓出來產生的～ 之後就用 jquery 來做複製生成 --}}
 
-            @if (count($field['options']))
+            @if (count($sch_menu))
                 @foreach ($v['value'] as $key => $value)
                     <option value="{{ $key }}"
                             {{--@if (isset($field['value']) && ($key==$field['value'] || (is_array($field['value']) && in_array($key, $field['value'])))--}}
@@ -46,11 +48,6 @@
 
 
 </div>
-
-
-
-{{--<input name="schedule" type="hidden" value="{{json_encode($field['options'])}}"> --}}{{--偷偷把整個行程菜單樣板轉成array帶到頁面去， 之後傳到後台嗎？ 不必這麼麻煩吧！！！！！--}}
-
 
 @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
     {{-- FIELD EXTRA CSS  --}}
