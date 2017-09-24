@@ -205,7 +205,7 @@ class GroupCrudController extends CrudController
 
 
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
-		    'name'            => 'schedule_detail',
+		    'name'            => 'schedule',
 		    'label'           => '行程規劃',
 		    'type'            => 'schedule_select_from_array', //自訂的欄位， 裡頭 有所有的行程菜單的選項，會根據日期變動，然後調整行程選單
 		    'options'         => '',  // 這邊帶入空字串，因為options需要客製！ 之後在edit 那邊帶入
@@ -382,4 +382,20 @@ class GroupCrudController extends CrudController
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getEditView(), $this->data);
     }
+
+	public function create()
+	{
+		$this->crud->hasAccessOrFail('create');
+
+		// prepare the fields you need to show
+		$this->data['crud'] = $this->crud;
+		$this->data['saveAction'] = $this->getSaveAction();
+		$this->data['fields'] = $this->crud->getCreateFields();
+		$this->data['title'] = trans('backpack::crud.add').' '.$this->crud->entity_name;
+
+		$this->data['sch_menu'] = Schedule::first()->schedule; // 菜單的config 直接帶進去 options 目前暫時只用第一組菜單， 其他的先不管！
+
+		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+		return view($this->crud->getCreateView(), $this->data);
+	}
 }

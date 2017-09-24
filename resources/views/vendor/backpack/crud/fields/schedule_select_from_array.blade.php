@@ -6,8 +6,7 @@
 
     <h2 class="day"></h2>
     @include('crud::inc.field_translatable_icon')
-
-
+    <?php xdebug_break()?>
 
     @foreach (reset($sch_menu) as $k => $v)
         <hr>{{$v['title']}} {{--時段名稱--}}
@@ -46,6 +45,8 @@
 
     @endforeach
 
+    <input name="schedule" type="hidden" value="@if (isset($field['value'])){{json_encode($field['value'])}}@endif">
+
 
 </div>
 
@@ -83,8 +84,7 @@
                 //$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) { //切換tab的時候觸發
 
 
-                //將行程菜單樣板抓過來後，只會有一天的行程， 順便幫他取上名字，加上名字
-
+                //一開始後台產生的行程菜單樣板只會有一天的行程，透過以下函式將複製多天的行程，並適當命名！
                 update_schedule_menu($("#wmd_visit_period")); //根據所選的日期，產生多天的行程表
 
                 $("#wmd_visit_period").change(function (e) { //當日期改變的時候，行程菜單也要跟著調整
@@ -104,6 +104,8 @@
 
             });
 
+
+            /* 更新行程菜單方法 */
             function update_schedule_menu(period) {
 
                 var start = (period.val().split(' - ')[0]).split(' ')[0];
