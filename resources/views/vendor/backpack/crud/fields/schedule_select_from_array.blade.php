@@ -6,7 +6,6 @@
 
     <h2 class="day"></h2>
     @include('crud::inc.field_translatable_icon')
-    <?php xdebug_break()?>
 
     @foreach (reset($sch_menu) as $k => $v)
         <hr>{{$v['title']}} {{--時段名稱--}}
@@ -30,7 +29,7 @@
                             {{--@if (isset($field['value']) && ($key==$field['value'] || (is_array($field['value']) && in_array($key, $field['value'])))--}}
                                 {{--|| ( ! is_null( old($field['name']) ) && old($field['name']) == $key))--}}
                             {{--selected--}}
-                            {{--@endif--}}{{-- 日後 implement這塊！ 判斷是否之前的選擇～ --}}
+                            {{--@endif --}}{{--日後 implement這塊！ 判斷是否之前的選擇～--}}{{-- --}}
                     >{{ $value['name'] }}</option>
                 @endforeach
             @endif
@@ -44,11 +43,11 @@
 
 
     @endforeach
-
-    <input name="schedule" type="hidden" value="@if (isset($field['value'])){{json_encode($field['value'])}}@endif">
-
-
 </div>
+
+
+<input name="schedule" type="hidden" value="@if (isset($field['value'])){{json_encode($field['value'])}}@endif">
+
 
 @if ($crud->checkIfFieldIsFirstOfItsType($field, $fields))
     {{-- FIELD EXTRA CSS  --}}
@@ -87,6 +86,31 @@
                 //一開始後台產生的行程菜單樣板只會有一天的行程，透過以下函式將複製多天的行程，並適當命名！
                 update_schedule_menu($("#wmd_visit_period")); //根據所選的日期，產生多天的行程表
 
+
+
+                /*
+                * 根據之前使用者所選擇的更新行程菜單
+                * */
+
+                if($('input[name="schedule"]').val() != "") {
+                    var user_choice = JSON.parse($('input[name="schedule"]').val());
+
+
+                    $.each(user_choice, function(i, val) { //第幾天
+                        $.each(this, function(j, val2) { //每個時段
+                            $.each(this.value, function(k, val3) { //每個項目
+                                if(this.checked) { //將對應的option 設定為 selected
+                                    /*i： 日期, j： 時段, k：第幾個項目*/
+                                    $("select[name='"+i+"sect"+j +"[]'] option[value='"+ k + "']").prop('selected', true);
+                                }
+                            });
+                        });
+                    });
+
+                }
+
+
+
                 $("#wmd_visit_period").change(function (e) { //當日期改變的時候，行程菜單也要跟著調整
                     /*
                     * 一開始後台會產生一個行程樣板，之後再根據你是新增還是修改來複製那個樣板，若是新增，就根據所選日期複製生成，
@@ -115,7 +139,7 @@
                 var date2 = new Date(end);
                 var timeDiff = Math.abs(date2.getTime() - date1.getTime());
                 diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
+//                alert('共'+(diffDays+1)+'天，記得至行程規劃頁籤安排行程');
 
                 $('#tab_schedule > div.sub_schedule').not(':first').remove(); //除了第一個 其他都移除，不行！
 
