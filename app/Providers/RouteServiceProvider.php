@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
 
 	    // Register CRUD routes
-	    $this->mapWmdgroupRoutes();
+	    $this->mapWmdRoutes();
 
         $this->mapApiRoutes();
 
@@ -82,11 +82,11 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-	protected function mapWmdgroupRoutes()
+	protected function mapWmdRoutes()
 	{
 		Route::middleware(['web', 'admin'])
 			->prefix('') // or use the prefix from CRUD config
-			->namespace($this->namespace.'\Front')
-			->group(base_path('routes/wmdgroup.php'));
+			->namespace($this->namespace.'\Front')  //這邊指定 是哪個namespace
+			->group(base_path('routes/wmdroute.php'));
 	}
 }
