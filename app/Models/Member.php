@@ -41,6 +41,13 @@ class Member extends Model
 		return $this->belongsTo('\app\Models\Group', 'group_id');
     }
 
+	public function user() //誰幫忙報的名， 自己也可以幫自己報名
+	{
+
+		return $this->belongsTo('\app\User', 'user_id');
+
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

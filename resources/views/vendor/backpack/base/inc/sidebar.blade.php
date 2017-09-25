@@ -91,6 +91,15 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要開團</span></a></li>
+
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>我要報名</span></a></li>
+
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>管理報名</span></a></li>
+
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
                                         class="fa fa-hdd-o"></i>
                                 <span>管理已開團項目</span></a></li>
