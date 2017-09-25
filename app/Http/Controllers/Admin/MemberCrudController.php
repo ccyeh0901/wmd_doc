@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Schedule;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
@@ -22,6 +23,8 @@ class MemberCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/member');
         $this->crud->setEntityNameStrings('member', 'members');
 
+	    $this->crud->setCreateView('backpack::crud.member_create', $this->data);
+
         /*
         |--------------------------------------------------------------------------
         | BASIC CRUD INFORMATION
@@ -30,75 +33,155 @@ class MemberCrudController extends CrudController
 
 //        $this->crud->setFromDb();
 
+	    $this->crud->addColumn([
+		    'name' => 'id', // The db column name
+		    'label' => "編號", // Table column heading
+	    ]); // add a text column, at the end of the stack
 
-        // ------ CRUD FIELDS
-        // $this->crud->addField($options, 'update/create/both');
-        // $this->crud->addFields($array_of_arrays, 'update/create/both');
-        // $this->crud->removeField('name', 'update/create/both');
-        // $this->crud->removeFields($array_of_names, 'update/create/both');
+	    $this->crud->addColumn([
+		    'name' => 'name_tw', // The db column name
+		    'label' => "中文姓名", // Table column heading
+	    ]); // add a text column, at the end of the stack
 
-        // ------ CRUD COLUMNS
-        // $this->crud->addColumn(); // add a single column, at the end of the stack
-        // $this->crud->addColumns(); // add multiple columns, at the end of the stack
-        // $this->crud->removeColumn('column_name'); // remove a column from the stack
-        // $this->crud->removeColumns(['column_name_1', 'column_name_2']); // remove an array of columns from the stack
-        // $this->crud->setColumnDetails('column_name', ['attribute' => 'value']); // adjusts the properties of the passed in column (by name)
-        // $this->crud->setColumnsDetails(['column_1', 'column_2'], ['attribute' => 'value']);
+	    $this->crud->addColumn([
+		    'name' => 'name_en_passport', // The db column name
+		    'label' => "英文姓名", // Table column heading
+	    ]); // add a text column, at the end of the stack
 
-        // ------ CRUD BUTTONS
-        // possible positions: 'beginning' and 'end'; defaults to 'beginning' for the 'line' stack, 'end' for the others;
-        // $this->crud->addButton($stack, $name, $type, $content, $position); // add a button; possible types are: view, model_function
-        // $this->crud->addButtonFromModelFunction($stack, $name, $model_function_name, $position); // add a button whose HTML is returned by a method in the CRUD model
-        // $this->crud->addButtonFromView($stack, $name, $view, $position); // add a button whose HTML is in a view placed at resources\views\vendor\backpack\crud\buttons
-        // $this->crud->removeButton($name);
-        // $this->crud->removeButtonFromStack($name, $stack);
-        // $this->crud->removeAllButtons();
-        // $this->crud->removeAllButtonsFromStack('line');
+	    $this->crud->addColumn([
+		    'name' => 'name_kr', // The db column name
+		    'label' => "韓文姓名", // Table column heading
+	    ]); // add a text column, at the end of the stack
 
-        // ------ CRUD ACCESS
-        // $this->crud->allowAccess(['list', 'create', 'update', 'reorder', 'delete']);
-        // $this->crud->denyAccess(['list', 'create', 'update', 'reorder', 'delete']);
+	    $this->crud->addColumn([
+		    'name' => 'sex', // The db column name
+		    'label' => "性別", // Table column heading
+		    'type' => 'radio',
+		    'options'     => [
+			    0 => "女",
+			    1 => "男",
+		    ]
+	    ]); // add a single column, at the end of the stack
 
-        // ------ CRUD REORDER
-        // $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
-        // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('reorder');
+	    $this->crud->addColumn([
+		    'name' => 'birthday', // The db column name
+		    'label' => "生日", // Table column heading
+		    'type' => 'text'
+	    ]);
 
-        // ------ CRUD DETAILS ROW
-        // $this->crud->enableDetailsRow();
-        // NOTE: you also need to do allow access to the right users: $this->crud->allowAccess('details_row');
-        // NOTE: you also need to do overwrite the showDetailsRow($id) method in your EntityCrudController to show whatever you'd like in the details row OR overwrite the views/backpack/crud/details_row.blade.php
 
-        // ------ REVISIONS
-        // You also need to use \Venturecraft\Revisionable\RevisionableTrait;
-        // Please check out: https://laravel-backpack.readme.io/docs/crud#revisions
-        // $this->crud->allowAccess('revisions');
 
-        // ------ AJAX TABLE VIEW
-        // Please note the drawbacks of this though:
-        // - 1-n and n-n columns are not searchable
-        // - date and datetime columns won't be sortable anymore
-        // $this->crud->enableAjaxTable();
+	    /* ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 我是分隔線 */
 
-        // ------ DATATABLE EXPORT BUTTONS
-        // Show export to PDF, CSV, XLS and Print buttons on the table view.
-        // Does not work well with AJAX datatables.
-        // $this->crud->enableExportButtons();
 
-        // ------ ADVANCED QUERIES
-        // $this->crud->addClause('active');
-        // $this->crud->addClause('type', 'car');
-        // $this->crud->addClause('where', 'name', '==', 'car');
-        // $this->crud->addClause('whereName', 'car');
-        // $this->crud->addClause('whereHas', 'posts', function($query) {
-        //     $query->activePosts();
-        // });
-        // $this->crud->addClause('withoutGlobalScopes');
-        // $this->crud->addClause('withoutGlobalScope', VisibleScope::class);
-        // $this->crud->with(); // eager load relationships
-        // $this->crud->orderBy();
-        // $this->crud->groupBy();
-        // $this->crud->limit();
+
+	    $this->crud->addField([
+		    'name'  => 'name_en_passport',
+		    'label' => "護照英文姓名",
+		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+	    $this->crud->addField([
+		    'name'  => 'name_tw',
+		    'label' => "中文姓名",
+		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+	    $this->crud->addField([
+		    'name'  => 'name_kr',
+		    'label' => "韓文姓名",
+		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+	    $this->crud->addField([
+		    'name'  => 'passport_no',
+		    'label' => "護照號碼",
+		    'type'  => 'text',
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'sex',
+		    'label'       => '性別',
+		    'type'        => 'select2_from_array',
+		    'options'     => ['0' => '女', '1' => '男'],
+		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
+		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
+	    $this->crud->addField([   // Date
+		    'name'                => 'birthday',
+		    'label'               => '生日',
+		    'type'                => 'date_picker',
+		    // optional:
+		    'date_picker_options' => [
+			    'todayBtn' => true,
+			    'format'   => 'yyyy-mm-dd',
+			    'language' => 'zh-TW',
+		    ],
+		    // 'wrapperAttributes' => ['class' => 'col-md-6'],
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'dept',
+		    'label'       => '所屬部門',
+		    'type'        => 'select2_from_array',
+		    'options'     => ['0' => '聖職者', '1' => '長年部', '2' => '家庭局', '3' => '家庭局', '4' => '青年部', '5' => 'Campus', '6' => 'SS', '7' => '幼初等部'],
+		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
+		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+		    'name'        => 'belongto_church',
+		    'label'       => '所屬教會',
+		    'type'        => 'select2_from_array',
+		    'options'     => ['0' => '主希望光', '1' => '信榮', '2' => '主析', '3' => '主大明', '4' => '主信心', '5' => '主大勇', '6' => '和平', '7' => '迦南'],
+		    'allows_null' => false,
+		    'tab'   => trans('backpack::crud.main_tab')
+		    // 'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+	    ]);
+
+
+	    $this->crud->addField([   // Checkbox
+		    'name' => 'newbie',
+		    'label' => '是否為新生',
+		    'type' => 'checkbox',
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+
+	    $this->crud->addField([   // 編輯器，big64
+		    'name'  => 'note',
+		    'label' => '備註',
+		    'type'  => 'summernote',
+		    //'options' => ['height' => 150],
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+
+//	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
+//		    'name'            => 'schedule',
+//		    'label'           => '行程規劃',
+//		    'type'            => 'schedule_select_from_array', //自訂的欄位， 裡頭 有所有的行程菜單的選項，會根據日期變動，然後調整行程選單
+//		    'options'         => '',  // 這邊帶入空字串，因為options需要客製！ 之後在edit 那邊帶入
+//		    'allows_null'     => false,
+//		    'tab'             => trans('backpack::crud.schedule_tab'),
+//		    'wrapperAttributes' => ['class' => 'sub_schedule'],
+//		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
+//	    ]);
     }
+
+
+
 
     public function store(StoreRequest $request)
     {
@@ -117,4 +200,21 @@ class MemberCrudController extends CrudController
         // use $this->data['entry'] or $this->crud->entry
         return $redirect_location;
     }
+
+
+	public function create()
+	{
+		$this->crud->hasAccessOrFail('create');
+
+		// prepare the fields you need to show
+		$this->data['crud'] = $this->crud;
+		$this->data['saveAction'] = $this->getSaveAction();
+		$this->data['fields'] = $this->crud->getCreateFields();
+		$this->data['title'] = trans('backpack::crud.add').' '.$this->crud->entity_name;
+
+//		$this->data['sch_menu'] = Schedule::first()->schedule; // 菜單的config 直接帶進去 options 目前暫時只用第一組菜單， 其他的先不管！
+
+		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+		return view($this->crud->getCreateView(), $this->data);
+	}
 }
