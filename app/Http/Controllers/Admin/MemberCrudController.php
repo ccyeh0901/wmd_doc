@@ -23,7 +23,7 @@ class MemberCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/member');
         $this->crud->setEntityNameStrings('member', 'members');
 
-	    $this->crud->setCreateView('backpack::crud.member_create', $this->data);
+	    $this->crud->setCreateView('backpack::crud.calendar', $this->data);
 
         /*
         |--------------------------------------------------------------------------
@@ -165,6 +165,13 @@ class MemberCrudController extends CrudController
 		    'type'  => 'summernote',
 		    //'options' => ['height' => 150],
 		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
+
+	    $this->crud->addField([   // CustomHTML
+		    'name' => 'calendar',
+		    'type' => 'custom_html',
+		    'value' => '<input name="rycalendar" type="hidden" value="0">',
+		    'tab'             => trans('backpack::crud.schedule_tab')
 	    ]);
 
 
