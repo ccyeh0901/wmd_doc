@@ -30,6 +30,17 @@ Route::group([
 	});
 
 	CRUD::resource('schedule', 'ScheduleCrudController');
+	CRUD::resource('member', 'MemberCrudController');
+});
+
+
+Route::group([ //給前臺用的，ex: 報名者
+	'prefix'     => 'front',
+	'middleware' => ['admin'],
+	'namespace'  => 'Admin',
+], function () {
+	// CRUD resources and other admin routes
+	CRUD::resource('member', 'MemberCrudController');
 });
 
 Route::get('api/article', 'Api\ArticleController@index');
