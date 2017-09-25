@@ -24,11 +24,15 @@ class GroupCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/group'); //指定路徑， admin/group
         $this->crud->setEntityNameStrings('group', 'groups'); //設定 db的表格名稱， 要複數
 
+	    $this->crud->access[] = 'show';  //加入 show 的權限
+
 //        $this->crud->setListView('backpack::crud.different_list', $this->data); //用setListView 改成不同的view
 
 //	    $this->crud->setListView('backpack::crud.schedule_list', $this->data); //用setListView 改成不同的view
 //	    $this->crud->setEditView('backpack::crud.schedule_edit', $this->data);
 //	    $this->crud->setCreateView('backpack::crud.schedule_create', $this->data);
+
+	    $this->crud->setShowView('backpack::crud.group_show', $this->data);
 
 
 //	    $this->crud->addField([
@@ -407,5 +411,20 @@ class GroupCrudController extends CrudController
 
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getCreateView(), $this->data);
+	}
+
+
+
+	public function show($id) // override show template
+	{
+		$this->crud->hasAccessOrFail('show');
+
+		// get the info for that entry
+		$this->data['entry'] = $this->crud->getEntry($id);
+		$this->data['crud'] = $this->crud;
+		$this->data['title'] = trans('backpack::crud.preview').' '.$this->crud->entity_name;
+
+		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+		return view($this->crud->getShowView(), $this->data);
 	}
 }
