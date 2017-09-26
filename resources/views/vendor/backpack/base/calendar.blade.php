@@ -13,8 +13,6 @@
     </section>
 @endsection
 
-
-
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -132,7 +130,7 @@
     <!-- FastClick -->
     <script src="/vendor/adminlte/plugins/fastclick/fastclick.js"></script>
     <!-- AdminLTE App -->
-    <script src="/vendor/adminlte/dist/js/app.min.js"></script>
+    {{--<script src="/vendor/adminlte/dist/js/app.min.js"></script>--}}
     <!-- AdminLTE for demo purposes -->
     <script src="/vendor/adminlte/dist/js/demo.js"></script>
     <!-- fullCalendar 2.2.5 -->

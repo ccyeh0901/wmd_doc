@@ -120,7 +120,7 @@
     <script src="{{ asset('vendor/adminlte') }}/plugins/pace/pace.min.js"></script>
     <script src="{{ asset('vendor/adminlte') }}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <script src="{{ asset('vendor/adminlte') }}/plugins/fastclick/fastclick.js"></script>
-    <script src="{{ asset('vendor/adminlte') }}/dist/js/app.min.js"></script>
+
 
     <!-- page script -->
     <script type="text/javascript">
@@ -172,6 +172,8 @@
     @yield('after_scripts')
 
     <!-- JavaScripts -->
+
+    <script src="{{ asset('vendor/adminlte') }}/dist/js/app.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>
 </html>
