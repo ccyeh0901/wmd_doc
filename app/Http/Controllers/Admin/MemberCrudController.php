@@ -23,7 +23,9 @@ class MemberCrudController extends CrudController
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/member');
         $this->crud->setEntityNameStrings('member', 'members');
 
-	    $this->crud->setCreateView('backpack::crud.calendar', $this->data);
+//	    $this->crud->setCreateView('backpack::crud.calendar', $this->data);
+
+	    $this->crud->setCreateView('backpack::crud.member_create', $this->data);
 
         /*
         |--------------------------------------------------------------------------
@@ -37,6 +39,9 @@ class MemberCrudController extends CrudController
 		    'name' => 'id', // The db column name
 		    'label' => "編號", // Table column heading
 	    ]); // add a text column, at the end of the stack
+
+
+
 
 	    $this->crud->addColumn([
 		    'name' => 'name_tw', // The db column name
@@ -70,10 +75,31 @@ class MemberCrudController extends CrudController
 	    ]);
 
 
+	    $this->crud->addColumn([
+		    // 1-n relationship
+		    'label' => "參加團名稱", // Table column heading
+		    'type' => "select",
+		    'name' => 'group_id', // the column that contains the ID of that connected entity;
+		    'entity' => 'group', // the method that defines the relationship in your Model
+		    'attribute' => "name", // foreign key attribute that is shown to user
+		    'model' => "App\Models\Group", // foreign key model
+	    ]);
+
+
 
 	    /* ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 我是分隔線 */
 
 
+
+	    $this->crud->addField([    // SELECT2 （跟SELECT 是一樣的 只是長得比較好看而已，可以跳過！）
+		    'label'     => '欲參加的團',
+		    'type'      => 'select2',
+		    'name'      => 'group_id',
+		    'entity'    => 'group', // Member::group()
+		    'attribute' => 'name',
+		    'model'     => "App\Models\Group",
+		    'tab'   => trans('backpack::crud.main_tab')
+	    ]);
 
 	    $this->crud->addField([
 		    'name'  => 'name_en_passport',
@@ -167,12 +193,12 @@ class MemberCrudController extends CrudController
 		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
-	    $this->crud->addField([   // CustomHTML
-		    'name' => 'calendar',
-		    'type' => 'custom_html',
-		    'value' => '<input name="rycalendar" type="hidden" value="0">',
-		    'tab'             => trans('backpack::crud.schedule_tab')
-	    ]);
+//	    $this->crud->addField([   // CustomHTML
+//		    'name' => 'calendar',
+//		    'type' => 'custom_html',
+//		    'value' => '<input name="rycalendar" type="hidden" value="0">',
+//		    'tab'             => trans('backpack::crud.schedule_tab')
+//	    ]);
 
 
 //	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！

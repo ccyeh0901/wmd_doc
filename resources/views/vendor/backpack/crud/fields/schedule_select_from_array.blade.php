@@ -92,7 +92,7 @@
                 * 根據之前使用者所選擇的更新行程菜單
                 * */
 
-                if($('input[name="schedule"]').val() != "") {
+                if($('input[name="schedule"]').val() != "") { //如果不是空的代表之前使用者有選擇過行程，也就是此次request是edit 而不是add
                     var user_choice = JSON.parse($('input[name="schedule"]').val());
 
 

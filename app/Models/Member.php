@@ -38,13 +38,13 @@ class Member extends Model
 
 	public function group()
 	{
-		return $this->belongsTo('\app\Models\Group', 'group_id');
+		return $this->belongsTo('App\Models\Group', 'group_id');
     }
 
 	public function user() //誰幫忙報的名， 自己也可以幫自己報名
 	{
 
-		return $this->belongsTo('\app\User', 'user_id');
+		return $this->belongsTo('App\User', 'user_id');
 
     }
 

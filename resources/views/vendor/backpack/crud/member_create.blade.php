@@ -44,8 +44,6 @@
 		    </div><!-- /.box-footer-->
 
 		  </div><!-- /.box -->
-
-        <input name="group_id" type="hidden" value="1">
 		  {!! Form::close() !!}
 	</div>
 </div>
