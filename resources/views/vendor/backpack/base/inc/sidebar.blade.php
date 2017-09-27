@@ -91,6 +91,9 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要開團</span></a></li>
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create/child') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>開分團</span></a></li>
 
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
                                         class="fa fa-files-o"></i>

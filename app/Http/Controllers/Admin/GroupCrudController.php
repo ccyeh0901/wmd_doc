@@ -98,13 +98,42 @@ class GroupCrudController extends CrudController
 
 
 
+	    if (\Request::is('admin/group/create/child'))
+	    {
+		    // will match URL /companies/999 or /companies/create
+
+
+		    $this->crud->addField([  // Select2
+			    'label'     => "請選擇主團",
+			    'type'      => 'child_group_select2',
+			    'name'      => 'parent_id', // the db column for the foreign key
+			    'entity'    => 'parent', // the method that defines the relationship in your Model
+			    'attribute' => 'name', // foreign key attribute that is shown to user
+			    'model'     => "App\Models\Group", // foreign key model
+			    'tab'       => trans('backpack::crud.main_tab')
+		    ]);
+
+//		    $this->crud->addField([  // Select2
+//			    'label'     => "請選擇主團",
+//			    'type'      => 'select2',
+//			    'name'      => 'category_id', // the db column for the foreign key
+//			    'entity'    => 'category', // the method that defines the relationship in your Model
+//			    'attribute' => 'name', // foreign key attribute that is shown to user
+//			    'model'     => "Backpack\NewsCRUD\app\Models\Category", // foreign key model
+//			    'tab'       => trans('backpack::crud.main_tab')
+//		    ]);
+
+
+
+	    }
+
+
 	    $this->crud->addField([
 		    'name'  => 'name',
 		    'label' => trans('backpack::crud.group_name'),
 		    'type'  => 'text',
 		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
-
 
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'        => 'type',
@@ -431,5 +460,11 @@ class GroupCrudController extends CrudController
 
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getShowView(), $this->data);
+	}
+
+	public function unique()
+	{
+		echo "test";
+
 	}
 }
