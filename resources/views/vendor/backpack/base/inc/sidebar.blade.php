@@ -17,16 +17,52 @@
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-             <li class="header">{{ trans('backpack::base.administration') }}</li>
-            <!-- ================================================ -->
-                <!-- ==== Recommended place for admin menu items ==== -->
-                <!-- ================================================ -->
-                <li><a href="{{ url('admin/tag') }}"><i class="fa fa-tag"></i> <span>Manage Tags</span></a></li>
+
+
+                <!-- ======================================= -->
+                <li class="header">{{ trans('backpack::base.user') }}</li>
 
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/dashboard') }}"><i
                                 class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a>
                 </li>
 
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓團管理</span> <i
+                                class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>我要開團</span></a></li>
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create/child') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>開分團</span></a></li>
+
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>我要報名</span></a></li>
+
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>管理報名</span></a></li>
+
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
+                                        class="fa fa-hdd-o"></i>
+                                <span>管理已開團項目</span></a></li>
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/schedule') }}"><i
+                                        class="fa fa-hdd-o"></i>
+                                <span>管理行程</span></a></li>
+
+                    </ul>
+                </li>
+                <li class="header">{{ trans('backpack::base.administration') }}</li>
+
+                <!-- ================================================ -->
+                <!-- ==== Recommended place for admin menu items ==== -->
+                <!-- ================================================ -->
+
+
+
+                <li><a href="{{ url('admin/tag') }}"><i class="fa fa-tag"></i> <span>Manage Tags</span></a></li>
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/monster') }}"><i
                                 class="fa fa-optin-monster"></i> <span>Monsters</span></a></li>
 
@@ -62,7 +98,7 @@
                     </ul>
                 </li>
 
-                <li class="treeview">
+                {{--<li class="treeview">
                     <a href="#"><i class="fa fa-cogs"></i> <span>Advanced</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
@@ -75,43 +111,14 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/setting') }}"><i
                                         class="fa fa-cog"></i> <span>Settings</span></a></li>
                     </ul>
-                </li>
+                </li>--}}
 
 
 
-                <button class="btn btn-default" data-toggle="control-sidebar">{{trans('backpack::base.toggle_right_side_bar')}}</button>
+                {{--<button class="btn btn-default" data-toggle="control-sidebar">{{trans('backpack::base.toggle_right_side_bar')}}</button>--}}
 
 
-                <!-- ======================================= -->
-                <li class="header">{{ trans('backpack::base.user') }}</li>
 
-                <li class="treeview">
-                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓團管理</span> <i class="fa fa-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
-                                        class="fa fa-files-o"></i>
-                                <span>我要開團</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create/child') }}"><i
-                                        class="fa fa-files-o"></i>
-                                <span>開分團</span></a></li>
-
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
-                                        class="fa fa-files-o"></i>
-                                <span>我要報名</span></a></li>
-
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/member') }}"><i
-                                        class="fa fa-files-o"></i>
-                                <span>管理報名</span></a></li>
-
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
-                                        class="fa fa-hdd-o"></i>
-                                <span>管理已開團項目</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/schedule') }}"><i
-                                        class="fa fa-hdd-o"></i>
-                                <span>管理行程</span></a></li>
-
-                    </ul>
-                </li>
 
 
 
