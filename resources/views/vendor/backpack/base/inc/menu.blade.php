@@ -1,3 +1,4 @@
+<!-- menu.blade.php -->
 <div class="navbar-custom-menu pull-left">
     <ul class="nav navbar-nav">
         <!-- =================================================== -->
@@ -24,8 +25,8 @@
                   class="form-horizontal" role="form">
                     <label class="" for="locale" style="float:left;color:#fff; padding-top:8px;">{{trans('backpack::crud.lang_switch')}}:</label>
                     <select class="form-control col-sm-2" name="locale" onchange="this.form.submit()" style="width:80px;">
-                        <option value="en">English</option>
                         <option value="tw"{{ Session::get('locale') === "tw" ? " selected" : "" }}>中文</option>
+                        <option value="en"{{ Session::get('locale') === "en" ? " selected" : "" }}>English</option>
                         <option value="kr"{{ Session::get('locale') === "kr" ? " selected" : "" }}>한국어</option>
                     </select>
                 {{--<input type="submit" value="Choose">--}}
