@@ -67,21 +67,21 @@ return [
 
 	// DataTables translation
 	'emptyTable'                              => 'No data available in table',
-	'info'                                    => 'Showing _START_ to _END_ of _TOTAL_ entries',
+	'info'                                    => '顯示 _START_ 至 _END_ 筆資料 / 共_TOTAL_筆',
 	'infoEmpty'                               => 'Showing 0 to 0 of 0 entries',
 	'infoFiltered'                            => '(filtered from _MAX_ total entries)',
 	'infoPostFix'                             => '',
 	'thousands'                               => ',',
-	'lengthMenu'                              => '_MENU_ records per page',
+	'lengthMenu'                              => '每頁 _MENU_ 筆',
 	'loadingRecords'                          => 'Loading...',
 	'processing'                              => 'Processing...',
-	'search'                                  => 'Search: ',
+	'search'                                  => '搜尋: ',
 	'zeroRecords'                             => 'No matching records found',
 	'paginate'                                => [
-		'first'    => 'First',
-		'last'     => 'Last',
-		'next'     => 'Next',
-		'previous' => 'Previous',
+		'first'    => '最先',
+		'last'     => '最後',
+		'next'     => '下一頁',
+		'previous' => '上一頁',
 	],
 	'aria'                                    => [
 		'sortAscending'  => ': activate to sort column ascending',
