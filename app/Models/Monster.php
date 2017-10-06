@@ -26,6 +26,9 @@ class Monster extends Model
         'address' => 'array',
 	    'start_date' => 'datetime', // by RY 把它轉成Carbon 的資料型態
 	    'end_date' => 'datetime',
+        // optional casts for select from array fields that allow multiple selection
+        // 'select_from_array' => 'array',
+        // 'select2_from_array' => 'array'
     ];
 
     /*
