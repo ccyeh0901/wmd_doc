@@ -11,8 +11,15 @@
 |
 */
 
+use Backpack\MenuCRUD\app\Models\MenuItem;
+
 Route::get('/', function () {
-	return view('welcome');
+	$this->data['menu_items'] = MenuItem::getTree();
+	$this->data['page'] = new stdClass();
+	$this->data['page']->title = '訪韓行政網';
+	$this->data['page']->content = '這是不公開的網站～';
+
+	return view('pages.about_us', $this->data);
 });
 
 // --------------------
@@ -56,7 +63,5 @@ Route::post('/locale', array(
 
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
-Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])
-	->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
-
+Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Backpack\MenuCRUD\app\Models\MenuItem;
 use Backpack\PageManager\app\Models\Page;
 use App\Http\Controllers\Controller;
 
@@ -18,6 +19,7 @@ class PageController extends Controller
 
 		$this->data['title'] = $page->title;
 		$this->data['page'] = $page->withFakes();
+		$this->data['menu_items'] = MenuItem::getTree();
 
 		return view('pages.'.$page->template, $this->data);
 	}

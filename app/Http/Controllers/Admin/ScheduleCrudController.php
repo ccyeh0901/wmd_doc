@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\ScheduleRequest as StoreRequest;
 use App\Http\Requests\ScheduleRequest as UpdateRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
+use Gate;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 
@@ -250,6 +251,13 @@ class ScheduleCrudController extends CrudController
 
 
     }
+
+	public function create(){
+		if(Gate::denies('schedule-management')){ //判斷是否有管理行程的權限
+			abort(403);
+		}
+		return parent::create();
+	}
 
 
 
