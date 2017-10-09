@@ -232,17 +232,21 @@ class GroupCrudController extends CrudController
 	    ]);
 
 
+
+//	    if(auth()->check() && auth()->user()->hasRole('Admin')){
 	    $this->crud->addField([
-		    'name'    => 'verified', // the name of the db column
-		    'label'   => '通過審核與否', // the input label
-		    'type'    => 'radio',
-		    'options' => [ // the key will be stored in the db, the value will be shown as label;
+		    'name'       => 'verified', // the name of the db column
+		    'label'      => '通過審核與否', // the input label
+		    'type'       => 'radio',
+		    'options'    => [ // the key will be stored in the db, the value will be shown as label;
 			    0 => '未通過',
 			    1 => '已通過',
 		    ],
 		    // optional
-		    'inline'  => true, // show the radios all on the same line?
-		    'tab'   => trans('backpack::crud.main_tab')
+
+		    'attributes' => !auth()->user()->hasRole('Admin') ? ['disabled' => 'disabled'] : ['' => ''],
+		    'inline'     => true, // show the radios all on the same line?
+		    'tab'        => trans('backpack::crud.main_tab')
 
 	    ]);
 
