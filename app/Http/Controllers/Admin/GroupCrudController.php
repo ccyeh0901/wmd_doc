@@ -92,9 +92,30 @@ class GroupCrudController extends CrudController
 	    $this->crud->addColumn([
 		    'name' => 'verified', // The db column name
 		    'label' => "是否通過審核", // Table column heading
-		    'type' => 'check'
+		    'type' => 'boolean',
+		    'options'     => [
+			    0 => "否",
+			    1 => "是"
+		    ]
 	    ]);
 	    /*以上增加表格的欄位*/
+
+
+	    $this->crud->addFilter([ // select2 filter
+		    'name' => 'verified',
+		    'type' => 'select2',
+		    'label'=> '是否通過審核'
+	    ], function() {
+		    return [
+			    0 => '否',
+			    1 => '是',
+		    ];
+	    }, function($value) { // if the filter is active
+		    $this->crud->addClause('where', 'verified', $value);
+	    });
+
+
+	    /* 新增子團會帶 admin/group/create/child/這樣的url*/
 
 
 
