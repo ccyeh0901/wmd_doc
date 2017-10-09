@@ -281,6 +281,13 @@ class GroupCrudController extends CrudController
 	    ]);
 
 
+	    $this->crud->addField([   // URL
+		    'name' => 'user_id',
+		    'type' => 'hidden',
+		    'value' => auth()->user()->id
+	    ]);
+
+
 	    $this->crud->addField([ // select_from_array  //從既有的選項（非db table）當中讓user選擇！
 		    'name'            => 'schedule',
 		    'label'           => '行程規劃',
@@ -292,6 +299,9 @@ class GroupCrudController extends CrudController
 		    'wrapperAttributes' => ['class' => 'sub_schedule'],
 		    'allows_multiple' => true, // OPTIONAL; needs you to cast this to array in your model;
 	    ]);
+
+
+
 
 
 

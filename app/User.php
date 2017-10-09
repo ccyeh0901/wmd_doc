@@ -43,4 +43,11 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+
+	public function groups()
+	{
+		return $this->hasMany('Group', 'user_id');
+
+    }
 }

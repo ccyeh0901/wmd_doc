@@ -41,7 +41,7 @@
                                         class="fa fa-files-o"></i>
                                 <span>開分團</span></a></li>
 
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/selfgroup') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>管理自己開的團</span></a></li>
 

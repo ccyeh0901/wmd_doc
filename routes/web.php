@@ -41,6 +41,8 @@ Route::group([
 		Route::get('group/create/child', 'GroupCrudController@create'); //額外的 admin/unique 可在這邊繼續加
 	});
 
+	CRUD::resource('selfgroup', 'SelfGroupCrudController');
+
 	CRUD::resource('schedule', 'ScheduleCrudController');
 	CRUD::resource('member', 'MemberCrudController');
 });
