@@ -95,7 +95,7 @@ class MemberCrudController extends CrudController
 		    'label'     => '欲參加的團',
 		    'type'      => 'select2',
 		    'name'      => 'group_id',
-		    'entity'    => 'group', // Member::group()
+		    'entity'    => 'group', // Member::group() //// the method that defines the relationship in your Model
 		    'attribute' => 'name',
 		    'model'     => "App\Models\Group",
 		    'tab'   => trans('backpack::crud.main_tab')
