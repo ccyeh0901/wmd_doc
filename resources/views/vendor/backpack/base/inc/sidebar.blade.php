@@ -30,6 +30,10 @@
                     <a href="#"><i class="fa fa-cogs"></i> <span>訪韓一般功能</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
+
+
+                        @hasrole('Member') {{--屬於個人會員的功能--}}
+
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要開團</span></a></li>
@@ -37,25 +41,28 @@
                                         class="fa fa-files-o"></i>
                                 <span>開分團</span></a></li>
 
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
+                                        class="fa fa-files-o"></i>
+                                <span>管理自己開的團</span></a></li>
+
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要報名</span></a></li>
 
+                        @endhasrole
 
-                        @hasrole('Admin')
+
+                        @hasrole('Admin') {{--管理者的功能--}}
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/member') }}"><i
                                         class="fa fa-files-o"></i>
-                                <span>管理報名</span></a></li>
+                                <span>管理所有報名</span></a></li>
 
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
                                         class="fa fa-hdd-o"></i>
                                 <span>審核申請訪韓團</span></a></li>
-                        @endhasrole
-
-                        @hasrole('Admin')
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/schedule') }}"><i
                                         class="fa fa-hdd-o"></i>
-                                <span>管理行程</span></a></li>
+                                <span>管理安排行程</span></a></li>
                         @endhasrole
 
                     </ul>
