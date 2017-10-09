@@ -49,7 +49,7 @@
 
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/group') }}"><i
                                         class="fa fa-hdd-o"></i>
-                                <span>管理已開團項目</span></a></li>
+                                <span>審核申請訪韓團</span></a></li>
                         @endhasrole
 
                         @hasrole('Admin')

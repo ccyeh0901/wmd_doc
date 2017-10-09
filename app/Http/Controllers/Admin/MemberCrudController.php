@@ -97,7 +97,7 @@ class MemberCrudController extends CrudController
 		    'name'      => 'group_id',
 		    'entity'    => 'group', // Member::group() //// the method that defines the relationship in your Model
 		    'attribute' => 'name',
-		    'model'     => "App\Models\Group",
+		    'model'     => "App\Models\VerifiedGroup",
 		    'tab'   => trans('backpack::crud.main_tab')
 	    ]);
 
