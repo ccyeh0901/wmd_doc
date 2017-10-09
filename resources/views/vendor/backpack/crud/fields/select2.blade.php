@@ -8,7 +8,6 @@
         style="width: 100%"
         @include('crud::inc.field_attributes', ['default_class' =>  'form-control select2_field'])
         >
-<?php xdebug_break()?>
         @if ($entity_model::isColumnNullable($field['name']))
             <option value="">-</option>
         @endif
