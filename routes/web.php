@@ -68,7 +68,15 @@ Route::post('/locale', array(
 	'uses' => 'LocaleController@chooser'
 ));
 
+Route::get('event', function () {
+	return view('index');
+});
+
+Route::resource('items', 'ItemController', ['except' => ['create', 'edit']]);//排除掉create和edit操作
+
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])->where(['page' => '^((?!admin).)*$|^((?!tracy/bar).)*$', 'subs' => '.*']);
+
+
 
