@@ -11,7 +11,9 @@
 |
 */
 
+use App\Events\ItemCreated;
 use App\Events\PusherEvent;
+use App\Item;
 use Backpack\MenuCRUD\app\Models\MenuItem;
 use Backpack\PageManager\app\Models\Page;
 
@@ -76,8 +78,11 @@ Route::get('event', function () {
 Route::resource('items', 'ItemController', ['except' => ['create', 'edit']]);//排除掉create和edit操作
 
 Route::get('/broadcast', function () {
-	event(new \App\Events\PusherEvent('Great Wall is great ', '1'));
-	return 'This is a Laravel Broadcaster Test!';
+//	event(new \App\Events\PusherEvent('Great Wall is great ', '1'));
+//	$item = Item::
+	$item = Item::find(3);
+	event(new ItemCreated($item));
+	return 'This is a Laravel Broadcaster Test!<br>';
 });
 
 

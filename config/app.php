@@ -239,6 +239,7 @@ return [
        /*
         * Other Aliases...
         */
+        'Pusher' => Pusher\Pusher::class,
 
     ],
 
