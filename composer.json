@@ -20,7 +20,8 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "doctrine/dbal": "^2.5",
         "recca0120/laravel-tracy": "^1.8",
-        "backpack/langfilemanager": "^1.0"
+        "backpack/langfilemanager": "^1.0",
+        "pusher/pusher-php-server": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
