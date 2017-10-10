@@ -34,10 +34,10 @@
 
                         @hasrole('Member') {{--屬於個人會員的功能--}}
 
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create') }}"><i
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/selfgroup/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要開團</span></a></li>
-                        <li><a href="{{ url(config('backpack.base.route_prefix').'/group/create/child') }}"><i
+                        <li><a href="{{ url(config('backpack.base.route_prefix').'/selfgroup/create/child') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>開分團</span></a></li>
 

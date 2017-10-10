@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class SelfGroupCrudController extends GroupCrudController
 {
-    public function setup()
+    public function setup() //只有setup 跟GroupCrudController稍有不同而已， 目的是使用不同的Model 來顯示不同的資料範圍
     {
 
 	    parent::setup();

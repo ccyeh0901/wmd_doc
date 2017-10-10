@@ -41,7 +41,9 @@ Route::group([
 		Route::get('group/create/child', 'GroupCrudController@create'); //額外的 admin/unique 可在這邊繼續加
 	});
 
-	CRUD::resource('selfgroup', 'SelfGroupCrudController');
+	CRUD::resource('selfgroup', 'SelfGroupCrudController')->with(function () { //加入 admin/group route
+		Route::get('selfgroup/create/child', 'SelfGroupCrudController@create'); //額外的 admin/unique 可在這邊繼續加
+	});
 
 	CRUD::resource('schedule', 'ScheduleCrudController');
 	CRUD::resource('member', 'MemberCrudController');
@@ -69,6 +71,6 @@ Route::post('/locale', array(
 ));
 
 
-/** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
+/** 給Page CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
 Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])->where(['page' => '^((?!admin).)*$|^((?!tracy/bar).)*$', 'subs' => '.*']);
 

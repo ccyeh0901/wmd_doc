@@ -119,7 +119,7 @@ class GroupCrudController extends CrudController
 
 
 
-	    if (\Request::is('admin/group/create/child'))
+	    if (strpos(\Request::url(), 'create/child') !== false)
 	    {
 		    // will match URL /companies/999 or /companies/create
 
@@ -368,6 +368,8 @@ class GroupCrudController extends CrudController
 
 	    // show a success message
 	    \Alert::success(trans('backpack::crud.insert_success'))->flash();
+
+//	    \Alert::info(trans('backpack::crud.wait_for_group_validation'))->flash();
 
 	    // save the redirect choice for next time
 	    $this->setSaveAction();

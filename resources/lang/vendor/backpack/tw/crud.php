@@ -140,5 +140,6 @@ return [
 	'lang_switch'                             => '語言切換',
 	'group_name'                              => '團名',
 	'schedule_tab'                            => 'Schedule', //這個不能是中文
-	'main_tab'                                => 'Main'
+	'main_tab'                                => 'Main',
+	'wait_for_group_validation' => '請耐心等候審核...'
 ];
