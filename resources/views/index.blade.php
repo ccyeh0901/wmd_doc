@@ -10,6 +10,7 @@
 	<!-- Bootstrap -->
 	{{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">--}}
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="//js.pusher.com/3.0/pusher.min.js"></script>{{--//引入pusherJS文件--}}
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -82,7 +83,7 @@
         $( "#addFrm" ).submit(function() {//回车或点击提交按钮时,AJAX post到ItemController::store()方法,json返回保存的'id'=>$item->id
             console.log($(this).serialize());
             $.post( "/items", $(this).serialize(), function( data ) {  //$(this).serialize()  =>  ['title'=> 'test']
-                addItem(data.id, false); //一開始都是未完成的狀態
+                //addItem(data.id, false); //一開始都是未完成的狀態
                 $( "#title" ).val(''); //清空input text box
             });
             return false;
@@ -95,8 +96,8 @@
                 data: {"isCompleted": isCompleted},
                 method: 'PATCH',
                 success: function() {//根据状态变化删除增加item
-                    removeItem(id);
-                    addItem(id, isCompleted);
+//                    removeItem(id);
+//                    addItem(id, isCompleted);
                 }
             });
         });
@@ -106,11 +107,35 @@
             $.ajax('/items/' + id, {//进入ItemController::destroy()删除数据库中item
                 method: 'DELETE',
                 success: function() {//UI删除该item
-                    removeItem(id);
+                    //removeItem(id);
                 }
             });
         });
     })(jQuery, addItem, removeItem);
+
+    //新加代码
+    var pusher            = new Pusher("e83cbb4e85b40f0ede42",
+
+        {
+            encrypted: true,
+            cluster: 'ap1' // This
+
+
+        });
+    var itemActionChannel = pusher.subscribe('itemAction');
+    itemActionChannel.bind('App\\Events\\ItemCreated', function (data) {
+        console.log(data.id);
+        addItem(data.id, false);
+    });
+    itemActionChannel.bind('App\\Events\\ItemDeleted', function (data) {
+        console.log(data.id);
+        removeItem(data.id);
+    });
+    itemActionChannel.bind('App\\Events\\ItemUpdated', function (data) {
+        removeItem(data.id);
+        addItem(data.id, data.isCompleted);
+    });
+
 
 </script>
 </body>

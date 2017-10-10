@@ -1,4 +1,4 @@
-//item.index
+{{--//item.index--}}
 <legend>未完成的Items</legend>
 <ul id="uncompletedItemsList" class="list-group">
 	@foreach ($uncompletedItems as $item)
