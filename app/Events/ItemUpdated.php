@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ItemUpdated
+class ItemUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -37,6 +37,7 @@ class ItemUpdated
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('itemAction');
+//        return new PrivateChannel('itemAction');
+	    return ['itemAction'];
     }
 }

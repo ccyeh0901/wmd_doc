@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ItemCreated;
+use App\Events\ItemDeleted;
+use App\Events\ItemUpdated;
+use App\Item;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +18,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+	    Item::created(function($item){
+		    event(new ItemCreated($item));
+	    });
+	    Item::deleted(function($item){
+		    event(new ItemDeleted($item));
+	    });
+	    Item::updated(function($item){
+		    event(new ItemUpdated($item));
+	    });
+
     }
 
     /**

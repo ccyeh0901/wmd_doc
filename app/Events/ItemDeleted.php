@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ItemDeleted
+class ItemDeleted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 	public $id;
@@ -33,6 +33,7 @@ class ItemDeleted
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('itemAction');
+//        return new PrivateChannel('itemAction');
+	    return ['itemAction'];
     }
 }

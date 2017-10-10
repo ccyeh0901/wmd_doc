@@ -11,6 +11,7 @@
 |
 */
 
+use App\Events\PusherEvent;
 use Backpack\MenuCRUD\app\Models\MenuItem;
 use Backpack\PageManager\app\Models\Page;
 
@@ -73,6 +74,12 @@ Route::get('event', function () {
 });
 
 Route::resource('items', 'ItemController', ['except' => ['create', 'edit']]);//排除掉create和edit操作
+
+Route::get('/broadcast', function () {
+	event(new \App\Events\PusherEvent('Great Wall is great ', '1'));
+	return 'This is a Laravel Broadcaster Test!';
+});
+
 
 
 /** CATCH-ALL ROUTE for Backpack/PageManager - needs to be at the end of your routes.php file  **/
