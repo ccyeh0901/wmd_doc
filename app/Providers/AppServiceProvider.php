@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\UserCreated;
+use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,6 +16,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+
+	    User::created(function($user){ //當使用者帳號建立時 會觸發UserCreated 事件！
+		    event(new UserCreated($user));
+	    });
+
     }
 
     /**
