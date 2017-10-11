@@ -475,6 +475,8 @@ class GroupCrudController extends CrudController
 
 		$this->data['sch_menu'] = Schedule::first()->schedule; // 菜單的config 直接帶進去 options 目前暫時只用第一組菜單， 其他的先不管！
 
+		\Alert::info('提醒您，別忘了填寫行程規劃(Schedule)喔～')->flash();
+
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getCreateView(), $this->data);
 	}
