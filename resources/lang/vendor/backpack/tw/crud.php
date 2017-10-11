@@ -39,7 +39,7 @@ return [
 	'to'                                      => 'to',
 	'undo'                                    => 'Undo',
 	'revision_restored'                       => 'Revision successfully restored',
-	'guest_user'                              => 'Guest User',
+	'guest_user'                              => '訪客',
 
 	// Translatable models
 	'edit_translations'                       => 'EDIT TRANSLATIONS',
@@ -66,17 +66,17 @@ return [
 	'delete_confirmation_not_deleted_message' => 'Nothing happened. Your item is safe.',
 
 	// DataTables translation
-	'emptyTable'                              => 'No data available in table',
+	'emptyTable'                              => '無資料',
 	'info'                                    => '顯示 _START_ 至 _END_ 筆資料 / 共_TOTAL_筆',
 	'infoEmpty'                               => 'Showing 0 to 0 of 0 entries',
 	'infoFiltered'                            => '(filtered from _MAX_ total entries)',
 	'infoPostFix'                             => '',
 	'thousands'                               => ',',
 	'lengthMenu'                              => '每頁 _MENU_ 筆',
-	'loadingRecords'                          => 'Loading...',
-	'processing'                              => 'Processing...',
+	'loadingRecords'                          => '載入中...',
+	'processing'                              => '處理中...',
 	'search'                                  => '搜尋: ',
-	'zeroRecords'                             => 'No matching records found',
+	'zeroRecords'                             => '找不到相符的',
 	'paginate'                                => [
 		'first'    => '最先',
 		'last'     => '最後',
@@ -101,8 +101,8 @@ return [
 	'please_fix'                              => 'Please fix the following errors:',
 
 	// global crud - success / error notification bubbles
-	'insert_success'                          => 'The item has been added successfully.',
-	'update_success'                          => 'The item has been modified successfully.',
+	'insert_success'                          => '資料送出成功！',
+	'update_success'                          => '資料更新成功！',
 
 	// CRUD reorder view
 	'reorder'                                 => 'Reorder',
@@ -117,9 +117,9 @@ return [
 	'no'                                      => 'No',
 
 	// CRUD filters navbar view
-	'filters'                                 => 'Filters',
-	'toggle_filters'                          => 'Toggle filters',
-	'remove_filters'                          => 'Remove filters',
+	'filters'                                 => '過濾器',
+	'toggle_filters'                          => '切換過濾器',
+	'remove_filters'                          => '移除過濾器',
 
 	// Fields
 	'browse_uploads'                          => 'Browse uploads',
