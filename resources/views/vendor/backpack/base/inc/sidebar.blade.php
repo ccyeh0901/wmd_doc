@@ -26,14 +26,13 @@
                                 class="fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a>
                 </li>
 
+
+                @hasrole('Member') {{--屬於個人會員的功能--}}
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓一般功能</span> <i
-                                class="fa fa-angle-left pull-right"></i></a>
+                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓一般功能</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
                     <ul class="treeview-menu">
-
-
-                        @hasrole('Member') {{--屬於個人會員的功能--}}
-
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/selfgroup/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要開團</span></a></li>
@@ -48,11 +47,18 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/member/create') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>我要報名</span></a></li>
+                    </ul>
+                </li>
+                @endhasrole
 
-                        @endhasrole
+                @hasrole('Admin') {{--管理者的功能--}}
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-cogs"></i> <span>訪韓管理功能</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
 
+                    <ul class="treeview-menu">
 
-                        @hasrole('Admin') {{--管理者的功能--}}
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/member') }}"><i
                                         class="fa fa-files-o"></i>
                                 <span>管理所有報名</span></a></li>
@@ -63,10 +69,13 @@
                         <li><a href="{{ url(config('backpack.base.route_prefix').'/schedule') }}"><i
                                         class="fa fa-hdd-o"></i>
                                 <span>管理安排行程</span></a></li>
-                        @endhasrole
-
                     </ul>
                 </li>
+                @endhasrole
+
+
+
+                @hasrole('Admin')
                 <li class="header">{{ trans('backpack::base.administration') }}</li>
 
                 <!-- ================================================ -->
@@ -74,7 +83,7 @@
                 <!-- ================================================ -->
 
 
-                @hasrole('Admin')
+
                 <li><a href="{{ url('admin/tag') }}"><i class="fa fa-tag"></i> <span>Manage Tags</span></a></li>
                 <li><a href="{{ url(config('backpack.base.route_prefix').'/monster') }}"><i
                                 class="fa fa-optin-monster"></i> <span>Monsters</span></a></li>
