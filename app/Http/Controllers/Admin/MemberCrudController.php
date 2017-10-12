@@ -245,9 +245,39 @@ class MemberCrudController extends CrudController
 		$this->data['fields'] = $this->crud->getCreateFields();
 		$this->data['title'] = trans('backpack::crud.add').' '.$this->crud->entity_name;
 
-//		$this->data['sch_menu'] = Schedule::first()->schedule; // 菜單的config 直接帶進去 options 目前暫時只用第一組菜單， 其他的先不管！
+		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+		return view($this->crud->getCreateView(), $this->data);
+	}
+
+	public function createByGroup($group_id)
+	{
+
+		$this->crud->hasAccessOrFail('create');
+
+		$this->crud->removeField('group_id');
+
+
+		$this->crud->addField([    // SELECT2 （跟SELECT 是一樣的 只是長得比較好看而已，可以跳過！）
+			'label'     => '欲參加的團',
+			'type'      => 'select2',
+			'name'      => 'group_id',
+			'entity'    => 'group', // Member::group() //// the method that defines the relationship in your Model
+			'attribute' => 'name',
+			'model'     => "App\Models\VerifiedGroup",
+			'tab'   => trans('backpack::crud.main_tab')
+		]);
+
+		// prepare the fields you need to show
+		$this->data['crud'] = $this->crud;
+		$this->data['saveAction'] = $this->getSaveAction();
+		$this->data['fields'] = $this->crud->getCreateFields();
+		$this->data['title'] = trans('backpack::crud.add').' '.$this->crud->entity_name;
+
 
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getCreateView(), $this->data);
+
+
+
 	}
 }

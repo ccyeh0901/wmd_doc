@@ -42,11 +42,13 @@ Route::group([
 	});
 
 	CRUD::resource('selfgroup', 'SelfGroupCrudController')->with(function () { //加入 admin/group route
-		Route::get('selfgroup/create/child', 'SelfGroupCrudController@create'); //額外的 admin/unique 可在這邊繼續加
+		Route::get('selfgroup/create/child', 'SelfGroupCrudController@create'); // 增加子團
 	});
 
 	CRUD::resource('schedule', 'ScheduleCrudController');
-	CRUD::resource('member', 'MemberCrudController');
+	CRUD::resource('member', 'MemberCrudController')->with(function (){
+		Route::get('member/create/{group_id}', 'MemberCrudController@createByGroup'); //額外的 admin/unique 可在這邊繼續加
+	});
 });
 
 
