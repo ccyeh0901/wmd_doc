@@ -307,59 +307,71 @@ class GroupCrudController extends CrudController
 
     }
 
+
+	public function pre_process(&$request)
+	{
+
+
+		// fallback to global request instance
+		if (is_null($request)) {
+			$request = \Request::instance();
+		}
+
+		// replace empty values with NULL, so that it will work with MySQL strict mode on
+		foreach ($request->input() as $key => $value) {
+			if (empty($value) && $value !== '0') {
+				$request->request->set($key, null);
+			}
+		}
+
+		/*
+		 * 將使用者選擇的項目 做成 json 存進db
+		 * 1. 先做出未選擇前的所有結果
+		 * 2. 根據user選擇的把對應項目checked設成true
+		 * 3. 轉成json array 存進db
+		 * */
+
+		$datediff = strtotime($request->get('wmd_visit_end')) - strtotime($request->get('wmd_visit_from'));
+		$diffday = floor($datediff / (60 * 60 * 24))+1; // 算出待在月明洞幾天
+
+		$schedule = Schedule::first()->schedule; //調出菜單，算出有幾個時段
+		$sect_num = count(reset($schedule));
+
+
+		//預備空的行程菜單array, 用日期當作index
+		for($i=0; $i<$diffday; $i++) {  // 哪一天
+			$_d = strtotime("+".$i." day", strtotime($request->get('wmd_visit_from')));
+			$date_index = date("Y-m-d", $_d);
+			$tmp[$date_index] = null;
+
+			for($j=0; $j<$sect_num; $j++) {  //哪個時段
+
+//			    $tmp[$date_index][] = null;
+				$tmp[$date_index][] = reset($schedule)[$j];  //從$schedul那邊複製過來
+
+
+				if (!is_null($request->get($date_index . 'sect' . $j)))  //取得user的選擇 填寫進菜單裡頭
+				{
+					foreach ($request->get($date_index . 'sect' . $j) as $item)
+					{
+						$tmp[$date_index][$j]['value'][$item]['checked'] = true;
+					}
+				}
+			}
+		}
+
+		$request['schedule'] = json_encode($tmp, JSON_UNESCAPED_SLASHES);
+    }
+
     public function store(StoreRequest $request)
     {
 	    $this->crud->hasAccessOrFail('create');
 
-	    // fallback to global request instance
-	    if (is_null($request)) {
-		    $request = \Request::instance();
-	    }
-
-	    // replace empty values with NULL, so that it will work with MySQL strict mode on
-	    foreach ($request->input() as $key => $value) {
-		    if (empty($value) && $value !== '0') {
-			    $request->request->set($key, null);
-		    }
-	    }
-
-	    /*
-	     * 將使用者選擇的項目 做成 json 存進db
-	     * 1. 先做出未選擇前的所有結果
-	     * 2. 根據user選擇的把對應項目checked設成true
-	     * 3. 轉成json array 存進db
-	     * */
-
-	    $datediff = strtotime($request->get('wmd_visit_end')) - strtotime($request->get('wmd_visit_from'));
-	    $diffday = floor($datediff / (60 * 60 * 24))+1; // 算出待在月明洞幾天
-
-	    $schedule = Schedule::first()->schedule; //調出菜單，算出有幾個時段
-	    $sect_num = count(reset($schedule));
+		$this->pre_process($request);
 
 
-	    //預備空的行程菜單array, 用日期當作index
-	    for($i=0; $i<$diffday; $i++) {  // 哪一天
-		    $_d = strtotime("+".$i." day", strtotime($request->get('wmd_visit_from')));
-		    $date_index = date("Y-m-d", $_d);
-		    $tmp[$date_index] = null;
+	    /* 若通過審核的話，產生報名網址 */
 
-		    for($j=0; $j<$sect_num; $j++) {  //哪個時段
-
-//			    $tmp[$date_index][] = null;
-			    $tmp[$date_index][] = reset($schedule)[$j];  //從$schedul那邊複製過來
-
-
-			    if (!is_null($request->get($date_index . 'sect' . $j)))  //取得user的選擇 填寫進菜單裡頭
-			    {
-				    foreach ($request->get($date_index . 'sect' . $j) as $item)
-				    {
-					    $tmp[$date_index][$j]['value'][$item]['checked'] = true;
-				    }
-			    }
-		    }
-	    }
-
-	    $request['schedule'] = json_encode($tmp, JSON_UNESCAPED_SLASHES);
 
 
 	    // insert item in the db
@@ -381,55 +393,7 @@ class GroupCrudController extends CrudController
     {
 	    $this->crud->hasAccessOrFail('update');
 
-	    // fallback to global request instance
-	    if (is_null($request)) {
-		    $request = \Request::instance();
-	    }
-
-	    // replace empty values with NULL, so that it will work with MySQL strict mode on
-	    foreach ($request->input() as $key => $value) {
-		    if (empty($value) && $value !== '0') {
-			    $request->request->set($key, null);
-		    }
-	    }
-
-	    /*
-	     * 將使用者選擇的項目 做成 json 存進db
-	     * 1. 先做出未選擇前的所有結果
-	     * 2. 根據user選擇的把對應項目checked設成true
-	     * 3. 轉成json array 存進db
-	     * */
-
-	    $datediff = strtotime($request->get('wmd_visit_end')) - strtotime($request->get('wmd_visit_from'));
-	    $diffday = floor($datediff / (60 * 60 * 24))+1; // 算出待在月明洞幾天
-
-	    $schedule = Schedule::first()->schedule; //調出菜單，算出有幾個時段
-	    $sect_num = count(reset($schedule));
-
-
-	    //預備空的行程菜單array, 用日期當作index
-	    for($i=0; $i<$diffday; $i++) {  // 哪一天
-		    $_d = strtotime("+".$i." day", strtotime($request->get('wmd_visit_from')));
-		    $date_index = date("Y-m-d", $_d);
-		    $tmp[$date_index] = null;
-
-		    for($j=0; $j<$sect_num; $j++) {  //哪個時段
-
-//			    $tmp[$date_index][] = null;
-			    $tmp[$date_index][] = reset($schedule)[$j];  //從$schedul那邊複製過來
-
-
-			    if (!is_null($request->get($date_index . 'sect' . $j)))  //取得user的選擇 填寫進菜單裡頭
-			    {
-				    foreach ($request->get($date_index . 'sect' . $j) as $item)
-				    {
-					    $tmp[$date_index][$j]['value'][$item]['checked'] = true;
-				    }
-			    }
-		    }
-	    }
-
-	    $request['schedule'] = json_encode($tmp, JSON_UNESCAPED_SLASHES);
+	    $this->pre_process($request);
 
 	    // update the row in the db
 	    $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
@@ -475,7 +439,7 @@ class GroupCrudController extends CrudController
 
 		$this->data['sch_menu'] = Schedule::first()->schedule; // 菜單的config 直接帶進去 options 目前暫時只用第一組菜單， 其他的先不管！
 
-		\Alert::info('提醒您，別忘了填寫行程規劃(Schedule)喔～')->flash();
+		\Alert::info('提醒您別忘了填寫行程規劃(Schedule)～');
 
 		// load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
 		return view($this->crud->getCreateView(), $this->data);
