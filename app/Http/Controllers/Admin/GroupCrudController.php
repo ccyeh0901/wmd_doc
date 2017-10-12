@@ -7,6 +7,7 @@ use App\Http\Requests\GroupRequest as UpdateRequest;
 use App\Models\Schedule;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Carbon\Carbon;
+use URL;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 
@@ -100,6 +101,8 @@ class GroupCrudController extends CrudController
 	    ]);
 	    /*以上增加表格的欄位*/
 
+
+	    /**/
 
 	    $this->crud->addFilter([ // select2 filter
 		    'name' => 'verified',
@@ -370,7 +373,9 @@ class GroupCrudController extends CrudController
 		$this->pre_process($request);
 
 
-	    /* 若通過審核的話，產生報名網址 */
+	    /* 若通過審核的話，產生報名網址 並顯示通知！ */
+
+//	    if()
 
 
 
@@ -394,6 +399,19 @@ class GroupCrudController extends CrudController
 	    $this->crud->hasAccessOrFail('update');
 
 	    $this->pre_process($request);
+
+	    /* 若通過審核的話，產生報名網址 並顯示通知！ */
+
+
+	    if($request->input('verified')) {
+
+	    	$apply_url = URL::to('/').'/admin/member/create/'.$request->input('id');
+		    \Alert::info("報名網址為：". $apply_url ."，您可傳給您的團員以便進行報名！")->flash();
+
+		    $request->request->set('apply_url', $apply_url);
+	    }
+
+
 
 	    // update the row in the db
 	    $item = $this->crud->update($request->get($this->crud->model->getKeyName()),
