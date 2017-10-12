@@ -60,15 +60,15 @@
 
 // Font Mixins
 @mixin serif-font {
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, '微軟正黑體', '微軟雅黑體', sans-serif;
 }
 @mixin script-font {
-  font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
+  font-family: 'Kaushan Script', 'Helvetica Neue', '微軟正黑體', '微軟雅黑體', Helvetica, Arial, cursive;
 }
 @mixin body-font {
-  font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial,'微軟正黑體', '微軟雅黑體',  sans-serif;
 }
 @mixin heading-font {
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial,'微軟正黑體', '微軟雅黑體',  sans-serif;
   text-transform: uppercase;
 }

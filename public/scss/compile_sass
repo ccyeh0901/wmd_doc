@@ -1,0 +1,2 @@
+/htdocs/lara_wmd_admin/public/vendor/backpack/cropper/node_modules/node-sass/bin/node-sass --output-style compressed agency.scss > agency.min.css
+
