@@ -99,7 +99,16 @@ class GroupCrudController extends CrudController
 			    1 => "是"
 		    ]
 	    ]);
+
+	    $this->crud->addColumn([
+		    'name' => 'apply_url', // The db column name
+		    'label' => "報名網址", // Table column heading
+	    ]); // add a t
+
+
 	    /*以上增加表格的欄位*/
+
+
 
 
 	    /**/

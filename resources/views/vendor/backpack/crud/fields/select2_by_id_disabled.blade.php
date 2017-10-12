@@ -15,7 +15,6 @@
             @if (isset($field['model']))
                 @foreach ($field['model']::all() as $connected_entity_entry)
                     <option value="{{ $connected_entity_entry->getKey() }}"
-                            <?php xdebug_break() ?>
                         @if (  ($field['current_groupid'] == $connected_entity_entry->getKey())|| ( old($field['name']) && old($field['name']) == $connected_entity_entry->getKey() ) || (isset($field['value']) && $connected_entity_entry->getKey()==$field['value']))
                              selected
                         @endif
