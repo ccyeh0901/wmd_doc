@@ -258,14 +258,16 @@ class MemberCrudController extends CrudController
 
 
 		$this->crud->addField([    // SELECT2 （跟SELECT 是一樣的 只是長得比較好看而已，可以跳過！）
-			'label'     => '欲參加的團',
-			'type'      => 'select2',
+			'label'     => '目前報名參加的團',
+			'type'      => 'select2_by_id_disabled',
 			'name'      => 'group_id',
 			'entity'    => 'group', // Member::group() //// the method that defines the relationship in your Model
-			'attribute' => 'name',
+			'attribute' => 'name',   // foreign key attribute that is shown to user 該id對應附表的名稱
+			'attributes' => ['disabled' => 'disabled'],
 			'model'     => "App\Models\VerifiedGroup",
-			'tab'   => trans('backpack::crud.main_tab')
-		]);
+			'tab'   => trans('backpack::crud.main_tab'),
+			'current_groupid' => $group_id
+		])->beforeField('name_en_passport');
 
 		// prepare the fields you need to show
 		$this->data['crud'] = $this->crud;
