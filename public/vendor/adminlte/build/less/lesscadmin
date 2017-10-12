@@ -1,0 +1,1 @@
+/htdocs/lara_wmd_admin/public/vendor/adminlte/node_modules/.bin/lessc --compress AdminLTE.less > AdminLTE.min.css
